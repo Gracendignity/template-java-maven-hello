@@ -11,6 +11,8 @@ public class MyUserRegister implements MyAction {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
     Scanner scanner2 = new Scanner(System.in);
+    String Input="";
+
     private static final String ACTION_NAME = "register";
     private Scanner scanner = null;
     private MyUserManager userManager = null; 
@@ -43,11 +45,10 @@ public class MyUserRegister implements MyAction {
                     String name = resultSet.getString("username");
                     if (username.equals(name)) {
                         System.out.println("用户名已存在，请重新输入");
-                        String Input = scanner2.nextLine();
+                         Input = scanner2.nextLine();
                     }
                 }
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             System.out.print("请输入密码:");
