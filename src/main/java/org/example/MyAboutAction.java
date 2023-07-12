@@ -3,7 +3,7 @@ package org.example;
 import java.util.Scanner;
 
 public class MyAboutAction implements MyAction {
-    private static final String ACTION_NAME = "about";
+    private static final String ACTION_NAME = "user";
 
     private Scanner scanner = null;
 
@@ -18,11 +18,11 @@ public class MyAboutAction implements MyAction {
 
     @Override
     public void run(String[] args) {
-
+        System.out.print("欢迎进入用户界面!");
         String userInput = null;
 
         while (true) {
-            System.out.println("这个是一个About，就是自我介绍的意思，输入 q 返回上级菜单");
+            System.out.println("请输入你的指令,q 退出");
 
             userInput = this.scanner.nextLine();
 

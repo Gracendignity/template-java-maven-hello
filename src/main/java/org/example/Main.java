@@ -13,17 +13,17 @@ public class Main {
 
         List<MyAction> actionList = new ArrayList<MyAction>();
 
-        MyHelpAction help = new MyHelpAction(scanner);
-        actionList.add(help);
+        MyHelpAction manager = new MyHelpAction(scanner);
+        actionList.add(manager);
 
-        MyAboutAction about = new MyAboutAction(scanner);
-        actionList.add(about);
+        MyAboutAction user = new MyAboutAction(scanner);
+        actionList.add(user);
 
         String userInput = "";
 
         while (true) {
-            System.out.println("请输入你的指令, exit退出");
-            System.out.print("你当前在第一级目录下 >");
+            System.out.print("欢迎使用购物管理系统! >");
+            System.out.println("请输入你的指令:进入管理员系统:manager,进入用户系统:user, 退出:exit");
             userInput = scanner.nextLine();
 
             if (userInput.equals("exit")) {
