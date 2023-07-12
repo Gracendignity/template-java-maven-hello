@@ -19,22 +19,27 @@ public class MyHelpAction implements MyAction {
 
     @Override
     public void run(String[] args) {
-        System.out.print("欢迎进入管理员界面!");
+        System.out.println("欢迎进入管理员界面!");
+
         List<MyAction> list = new ArrayList<MyAction>();
 
-        MyLogin login = new MyLogin(scanner);
+        MyUserManager userManager=new MyUserManager();
+        MyLogin login = new MyLogin(scanner,userManager);
         list.add(login);
-
+        
+        MyUserRegister register = new MyUserRegister(scanner,userManager);
+        list.add(register);
+ 
         
         String userInput = "";
 
         while(true) {
-            System.out.print("你当前在 manager的二级子目录下 >");
-            System.out.println("请输入你的指令:登录:login,密码管理:passwordManager,客户管理:userManager,商品管理:productManager,q 退出");
+            System.out.println("你当前在 manager的二级子目录下 >");
+            System.out.println("请输入你的指令:已有账户登录:login,新用户跳转注册:register,q 退出");
             userInput = this.scanner.nextLine();
 
             if (userInput.equals("q")) {
-                break;
+                break; 
             }
             String actionName = null;
             for(MyAction oneAction: list) {

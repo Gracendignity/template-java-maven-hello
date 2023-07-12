@@ -8,6 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello world!");
+        
+        DatabaseInitializer databaseInitializer = new DatabaseInitializer();
+        databaseInitializer.initializeDatabase();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -22,7 +25,7 @@ public class Main {
         String userInput = "";
 
         while (true) {
-            System.out.print("欢迎使用购物管理系统! >");
+            System.out.println("欢迎使用购物管理系统! >");
             System.out.println("请输入你的指令:进入管理员系统:manager,进入用户系统:user, 退出:exit");
             userInput = scanner.nextLine();
 

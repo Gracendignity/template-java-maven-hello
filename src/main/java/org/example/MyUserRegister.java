@@ -1,26 +1,26 @@
 package org.example;
-
 import java.util.Scanner;
 
-public class MyLogin implements MyAction {
+public class MyUserRegister implements MyAction {
 
-    private static final String ACTION_NAME = "login";
+    private static final String ACTION_NAME = "register";
     private Scanner scanner = null;
     private MyUserManager userManager = null; 
 
-    public MyLogin(Scanner scanner,MyUserManager userManager) {
+    public MyUserRegister(Scanner scanner,MyUserManager userManager) {
         this.scanner = scanner;
         this.userManager = userManager;
     }
     
     @Override
     public String getActionName() {
-        return MyLogin.ACTION_NAME;
+        return MyUserRegister.ACTION_NAME;
     }
 
     @Override
     public void run(String[] args) {
-        System.out.println("欢迎进入登录界面!");
+        System.out.println("欢迎进入注册界面!");
+        
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
@@ -28,18 +28,11 @@ public class MyLogin implements MyAction {
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
 
-            boolean success = this.userManager.login(username, password);
+            boolean success = this.userManager.registerUser(username, password);
             if(success){
-                System.out.println("登录成功,返回上一级");
-                break;
-            }
-            else{
-                System.out.println("登录失败,返回上一级");
+                System.out.println("注册成功,返回上一级");
                 break;
             }
         }
-        System.out.println("你已退出登录界面，回到管理员页面!");
-    }
-
-    
+    } 
 }
