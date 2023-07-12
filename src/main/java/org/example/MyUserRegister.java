@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MyUserRegister implements MyAction {
 
     private static final String DB_URL = "jdbc:sqlite:users.db";
-
+    
     private static final String ACTION_NAME = "register";
     private Scanner scanner = null;
     private MyUserManager userManager = null; 
