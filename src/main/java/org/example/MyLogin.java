@@ -23,11 +23,14 @@ public class MyLogin implements MyAction {
         String userInput = "";
 
         while(true) {
-            System.out.println("请输入你的用户名及密码,q 退出");
-            System.out.println("用户名: >");
+            System.out.print("请输入用户名:");
+            String username = this.scanner.nextLine();
+
+            System.out.print("请输入密码:");
+            String password = this.scanner.nextLine();
+
+
             userInput = this.scanner.nextLine();
-
-
 
             if (userInput.equals("q")) {
                 break;
