@@ -33,10 +33,6 @@ public class MyLogin implements MyAction {
                 System.out.println("登录成功,返回上一级");
                 break;
             }
-            else{
-                System.out.println("登录失败,返回上一级");
-                break;
-            }
         }
         System.out.println("你已退出登录界面，回到管理员页面!");
     }
