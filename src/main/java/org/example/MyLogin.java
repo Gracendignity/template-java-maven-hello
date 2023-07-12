@@ -21,6 +21,7 @@ public class MyLogin implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入登录界面!");
+        
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
