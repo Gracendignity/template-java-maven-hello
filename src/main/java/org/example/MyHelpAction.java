@@ -23,8 +23,8 @@ public class MyHelpAction implements MyAction {
         List<MyAction> list = new ArrayList<MyAction>();
 
         MyLogin login = new MyLogin(scanner);
-
         list.add(login);
+
         
         String userInput = "";
 
@@ -35,6 +35,14 @@ public class MyHelpAction implements MyAction {
 
             if (userInput.equals("q")) {
                 break;
+            }
+            String actionName = null;
+            for(MyAction oneAction: list) {
+                actionName = oneAction.getActionName();
+
+                if (userInput.equalsIgnoreCase(actionName)) {
+                    oneAction.run(null);
+                }
             }
     }
     System.out.println("你已退出管理员界面，回到开始页面!");
