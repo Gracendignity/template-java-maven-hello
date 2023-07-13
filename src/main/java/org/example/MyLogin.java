@@ -20,7 +20,6 @@ public class MyLogin implements MyAction {
         return MyLogin.ACTION_NAME;
     }
     String userInput = "";
-    String userStatus = "";
 
     @Override
     public void run(String[] args) {
