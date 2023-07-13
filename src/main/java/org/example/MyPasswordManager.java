@@ -74,9 +74,13 @@ public class MyPasswordManager implements MyAction {
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
                
-               System.out.println("修改密码成功,请重新登录:login");
+               System.out.println("修改密码成功,请重新登录:login，q退出");
                userInput = this.scanner.nextLine();
-            
+               
+               if (userInput.equals("q")) {
+                break; 
+            }
+
             String actionName = null;
             for(MyAction oneAction: list) {
                 actionName = oneAction.getActionName();
@@ -128,8 +132,12 @@ public class MyPasswordManager implements MyAction {
             
             boolean success = this.userManager.registerUser(username, password,userStatus);
             if(success){
-                System.out.println("重置密码成功，请重新登录:login");
+                System.out.println("重置密码成功，重新登录:login，q退出");
                 userInput = this.scanner.nextLine();
+
+                if (userInput.equals("q")) {
+                    break; 
+                }
 
             String actionName = null;
             for(MyAction oneAction: list) {

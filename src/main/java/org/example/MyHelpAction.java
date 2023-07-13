@@ -51,7 +51,6 @@ public class MyHelpAction implements MyAction {
                     oneAction.run(null);
                 }
            }
-         System.out.println("你已退出管理员界面，回到开始页面!");
         }
     }
  }
