@@ -40,12 +40,13 @@ public class MyUserManager {
 
                 if (resultSet.next()) {
                     String storedPassword = resultSet.getString("password");
-                    if (password.equals(storedPassword)){
+                    String status = resultSet.getString("userStatus");
+                    if (password.equals(storedPassword) && password.equals(status)){
                         System.out.println("Login successful!");
                       return true;
                     }
                     else{
-                        System.out.println("Incorrect password!");
+                        System.out.println("Incorrect password or Incorrect userStatus !");
                     }
                 }
                 else{
