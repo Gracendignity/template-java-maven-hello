@@ -47,7 +47,7 @@ public class MyLogin implements MyAction {
                 
                 System.out.println("登录成功!");
                 if(userStatus.equals("manager")){
-                System.out.println("请输入你的指令:密码管理:login,顾客管理:customer,商品管理:product,q 退出");
+                System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
                     userInput = this.scanner.nextLine();
 
                     
@@ -65,7 +65,7 @@ public class MyLogin implements MyAction {
                    }
                 }
                 else if(userStatus.equals("user")){
-                System.out.println("请输入你的指令:密码管理:login,购物：shopping,q 退出");
+                System.out.println("请输入你的指令:密码管理:passWord,购物：shopping,q 退出");
                     userInput = this.scanner.nextLine();
 
                     if (userInput.equals("q")) {
