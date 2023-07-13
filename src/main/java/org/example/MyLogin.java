@@ -32,7 +32,7 @@ public class MyLogin implements MyAction {
             boolean success = this.userManager.login(username, password);
             if(success){
 
-                System.out.println("登录成功，返回上一级!");
+                System.out.println("登录成功!");
                 break;
             }
         }
