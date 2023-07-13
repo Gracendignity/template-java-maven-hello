@@ -33,7 +33,7 @@ public class MyPasswordManager implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入密码管理界面!");
-        System.out.println("修改密码：change,重置密码:reset");
+        System.out.println("修改密码：change,重置密码:reset,q退出");
         String Input = input.nextLine();
         switch(Input){
             case "change": 
