@@ -29,6 +29,7 @@ public class MyUserManager {
     /**
      * @param username
      * @param password
+     *  @param userStatus
      * @return
      */
     public boolean login(String username, String password,String userStatus) {
