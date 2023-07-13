@@ -65,7 +65,9 @@ public class MyUserRegister implements MyAction {
             boolean success = this.userManager.registerUser(username, password);
             if(success){
                 System.out.println("注册成功,返回登录：login");
-                String actionName = null;
+                userInput = this.scanner.nextLine();
+
+            String actionName = null;
             for(MyAction oneAction: list) {
                 actionName = oneAction.getActionName();
 
