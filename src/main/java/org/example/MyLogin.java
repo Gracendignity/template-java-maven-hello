@@ -44,6 +44,7 @@ public class MyLogin implements MyAction {
             boolean success = this.userManager.login(username, password,userStatus);
             if(success){
 
+                
                 System.out.println("登录成功!");
                 if(userStatus.equals("manager")){
                 System.out.println("请输入你的指令:密码管理:login,顾客管理:customer,商品管理:product,q 退出");

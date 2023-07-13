@@ -40,22 +40,18 @@ public class MyUserManager {
 
                 if (resultSet.next()) {
                     String storedPassword = resultSet.getString("password");
-                    String storedUsername = resultSet.getString("username");
-                    if (password.equals(storedPassword)) {
+                    if (password.equals(storedPassword)){
                         System.out.println("Login successful!");
-                        return true;
+                      return true;
                     }
                     else{
-                        System.out.println("Incorrect password.");
+                        System.out.println("Incorrect password!");
                     }
-                    if(username.equals(storedUsername)){
-                        System.out.println("Username does not exist.");
-                    }
-              else {
-                    System.out.println("Incorrect userStatus.");
                 }
-           } 
-        }
+                else{
+                    System.out.println("Username does not exist.");
+                }
+    }
          catch (SQLException e) {
             System.out.println("Failed to login: " + e.getMessage());
         }
