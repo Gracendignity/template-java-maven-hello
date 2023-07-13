@@ -14,7 +14,7 @@ public class MyUserManager {
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password,userStatus) VALUES (?, ?,?)")) {
             statement.setString(1, username);
             statement.setString(2, password);
-            statement.setString(2, userStatus);
+            statement.setString(3, userStatus);
             statement.executeUpdate();
             System.out.println("User registered successfully!");
 
