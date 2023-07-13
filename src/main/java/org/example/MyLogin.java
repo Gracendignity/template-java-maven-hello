@@ -34,7 +34,7 @@ public class MyLogin implements MyAction {
         System.out.println("欢迎进入登录界面!");
         while(true) {
 
-            System.out.print("请输入你的身份:manager or user");
+            System.out.print("请输入你的身份:manager or user:");
             String userStatus = this.scanner.nextLine();
 
             System.out.print("请输入用户名:");

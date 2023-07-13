@@ -40,7 +40,7 @@ public class MyUserRegister implements MyAction {
 
 
         while(true) {
-            System.out.print("请输入你的身份:manager or user");
+            System.out.print("请输入你的身份:manager or user:");
             String userStatus = this.scanner.nextLine();
 
             System.out.print("请输入用户名:");
