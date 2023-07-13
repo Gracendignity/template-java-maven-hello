@@ -40,6 +40,9 @@ public class MyUserRegister implements MyAction {
 
 
         while(true) {
+            System.out.print("请输入你的身份:manager or user");
+            String userStatus = this.scanner.nextLine();
+
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
             
@@ -62,7 +65,7 @@ public class MyUserRegister implements MyAction {
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
 
-            boolean success = this.userManager.registerUser(username, password);
+            boolean success = this.userManager.registerUser(username, password,userStatus);
             if(success){
                 System.out.println("注册成功,返回登录：login");
                 userInput = this.scanner.nextLine();

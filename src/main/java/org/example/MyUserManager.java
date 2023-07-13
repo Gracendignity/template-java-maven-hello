@@ -9,11 +9,12 @@ import java.sql.SQLException;
 public class MyUserManager {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
-    public boolean registerUser(String username, String password) {
+    public boolean registerUser(String username, String password,String userStatus) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password) VALUES (?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password,userStatus) VALUES (?, ?,?)")) {
             statement.setString(1, username);
             statement.setString(2, password);
+            statement.setString(2, userStatus);
             statement.executeUpdate();
             System.out.println("User registered successfully!");
 
@@ -30,7 +31,7 @@ public class MyUserManager {
      * @param password
      * @return
      */
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password,String userStatus) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
             statement.setString(1, username);
@@ -38,16 +39,23 @@ public class MyUserManager {
 
                 if (resultSet.next()) {
                     String storedPassword = resultSet.getString("password");
+                    String storedUsername = resultSet.getString("username");
                     if (password.equals(storedPassword)) {
                         System.out.println("Login successful!");
                         return true;
-                    } else {
+                    }
+                    else{
                         System.out.println("Incorrect password.");
                     }
-                } else {
-                    System.out.println("Username does not exist.");
+                    if(username.equals(storedUsername)){
+                        System.out.println("Username does not exist.");
+                    }
+              else {
+                    System.out.println("Incorrect userStatus.");
                 }
-        } catch (SQLException e) {
+           } 
+        }
+         catch (SQLException e) {
             System.out.println("Failed to login: " + e.getMessage());
         }
 
