@@ -26,8 +26,9 @@ public class MyLogin implements MyAction {
         System.out.println("欢迎进入登录界面!");
         
         List<MyAction> list = new ArrayList<MyAction>();
+        MyUserManager userManager=new MyUserManager();
 
-        MyPasswordManager passWord=new MyPasswordManager(scanner);
+        MyPasswordManager passWord=new MyPasswordManager(scanner,userManager);
         list.add(passWord);
 
         while(true) {

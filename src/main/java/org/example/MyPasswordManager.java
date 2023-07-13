@@ -15,9 +15,11 @@ public class MyPasswordManager implements MyAction {
     private static final String ACTION_NAME = "passWord";
 
     private Scanner scanner = null;
+    private MyUserManager userManager = null; 
 
-    public MyPasswordManager(Scanner scanner) {
+    public MyPasswordManager(Scanner scanner,MyUserManager userManager) {
         this.scanner = scanner;
+        this.userManager = userManager;
     }
     
     @Override
@@ -54,9 +56,9 @@ public class MyPasswordManager implements MyAction {
             
             try (Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement statement = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?")) {
-           statement.setString(1, newPassword);
-           statement.setString(2, username);
-           int rowsUpdated = statement.executeUpdate();
+            statement.setString(1, newPassword);
+            statement.setString(2, username);
+            int rowsUpdated = statement.executeUpdate();
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
            } else {
@@ -65,7 +67,7 @@ public class MyPasswordManager implements MyAction {
        } catch(SQLException e) {
            System.out.println("Error updating user information: " + e.getMessage());
        }
-       System.out.println("修改密码成功!");
+       System.out.println("修改密码成功,请重新登录!");
        break;
         }
     }
@@ -82,21 +84,24 @@ public class MyPasswordManager implements MyAction {
         if (rowsDeleted > 0) {
             System.out.println("User deleted successfully!");
 
-            System.out.print("请输入用户名:");
+            System.out.print("请输入你的用户名:");
             username = this.scanner.nextLine();
 
             System.out.print("请输入重置后的密码:");
             String password = this.scanner.nextLine();
-
+            
+            boolean success = this.userManager.registerUser(username, password);
+            if(success){
+                System.out.println("重置密码成功，请重新登录!");
+                break;
+            }
         } else {
             System.out.println("User not found!");
         }
     } catch(SQLException e) {
         System.out.println("Error deleting user: " + e.getMessage());
     }
-      System.out.println("重置密码成功!");
-      break;
-        } 
+     } 
     }
     
 }
