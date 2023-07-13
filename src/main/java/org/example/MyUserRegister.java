@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MyUserRegister implements MyAction {
@@ -27,6 +29,15 @@ public class MyUserRegister implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入注册界面!");
+        
+        List<MyAction> list = new ArrayList<MyAction>();
+         
+        MyUserManager userManager=new MyUserManager();
+        MyLogin login = new MyLogin(scanner,userManager);
+        list.add(login);
+
+        String userInput = "";
+
 
         while(true) {
             System.out.print("请输入用户名:");
@@ -53,7 +64,15 @@ public class MyUserRegister implements MyAction {
 
             boolean success = this.userManager.registerUser(username, password);
             if(success){
-                System.out.println("注册成功,返回上一级");
+                System.out.println("注册成功,返回登录：login");
+                String actionName = null;
+            for(MyAction oneAction: list) {
+                actionName = oneAction.getActionName();
+
+                if (userInput.equalsIgnoreCase(actionName)) {
+                    oneAction.run(null);
+           }
+         } 
                 break;
             }
         }
