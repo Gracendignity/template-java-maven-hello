@@ -29,7 +29,9 @@ public class MyHelpAction implements MyAction {
         
         MyUserRegister register = new MyUserRegister(scanner,userManager);
         list.add(register);
- 
+
+        MyPasswordManager passWord = new MyPasswordManager(scanner,userManager);
+        list.add(passWord);
         
         String userInput = "";
 
@@ -47,9 +49,19 @@ public class MyHelpAction implements MyAction {
 
                 if (userInput.equalsIgnoreCase(actionName)) {
                     oneAction.run(null);
+                    System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
+                    userInput = this.scanner.nextLine();
+
+                    for(MyAction twoAction: list) {
+                    actionName = twoAction.getActionName();
+
+                    if (userInput.equalsIgnoreCase(actionName)) {
+                       twoAction.run(null);
+                    }
                 }
             }
+        }
     }
     System.out.println("你已退出管理员界面，回到开始页面!");
-    }
+ }
 }
