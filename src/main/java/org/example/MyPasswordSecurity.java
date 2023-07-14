@@ -44,12 +44,12 @@ public class MyPasswordSecurity {
         // 读取密码
         char[] passwordArray = console.readPassword("Enter your password: ");
         
-        // 将密码转换为字符串进行处理
-        password = new String(passwordArray);
+       // 打印星号代替密码
+       Arrays.fill(passwordArray, '*');
+       System.out.println("Entered password: " + new String(passwordArray));
         
         // 清除密码的字符数组
-        Arrays.fill(passwordArray, '*');
-        System.out.println(passwordArray);
+        Arrays.fill(passwordArray, ' ');
       }
     
     
