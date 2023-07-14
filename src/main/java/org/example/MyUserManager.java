@@ -9,12 +9,12 @@ import java.sql.SQLException;
 public class MyUserManager {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
-    public boolean registerUser(String username, String password,String userStatus) {
+    public boolean registerUser(String username, String password,String userMail) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userStatus) VALUES (?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
             statement.setString(1, username);
             statement.setString(2, password);
-            statement.setString(3, userStatus);
+            statement.setString(3, userMail);
             statement.executeUpdate();
             System.out.println("User registered successfully!");
 
@@ -32,7 +32,8 @@ public class MyUserManager {
      * @param userStatus
      * @return
      */
-    public boolean login(String username, String password,String userStatus) {
+    public boolean login(String username, String password) {
+        int count=0;
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
             statement.setString(1, username);
@@ -40,13 +41,16 @@ public class MyUserManager {
 
                 if (resultSet.next()) {
                     String storedPassword = resultSet.getString("password");
-                    String status = resultSet.getString("userStatus");
-                    if (password.equals(storedPassword) && userStatus.equals(status)){
+                    if (password.equals(storedPassword)){
                         System.out.println("Login successful!");
                       return true;
                     }
                     else{
-                        System.out.println("Incorrect password or Incorrect userStatus !");
+                        System.out.println("Incorrect password!");
+                        count++;
+                        if(count==5){
+                            System.out.println("你的账户已被锁定!");
+                        }
                     }
                 }
                 else{

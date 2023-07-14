@@ -37,7 +37,7 @@ public class MyHelpAction implements MyAction {
 
         while(true) {
             System.out.println("你当前在 manager的二级子目录下 >");
-            System.out.println("请输入你的指令:已有账户登录:login,新用户跳转注册:register,q 退出");
+            System.out.println("登录账户:login,q 退出");
             userInput = this.scanner.nextLine();
 
             if (userInput.equals("q")) {

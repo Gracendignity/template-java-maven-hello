@@ -121,7 +121,7 @@ public class MyPasswordManager implements MyAction {
         if (rowsDeleted > 0) {
             System.out.println("User deleted successfully!");
 
-            System.out.print("请输入你的用户名:");
+            System.out.print("请输入需要重置密码用户的用户名:");
             username = this.scanner.nextLine();
 
             System.out.print("请输入重置后的密码:");

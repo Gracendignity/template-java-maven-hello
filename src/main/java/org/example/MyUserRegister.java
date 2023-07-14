@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyUserRegister implements MyAction {
 
@@ -42,6 +44,11 @@ public class MyUserRegister implements MyAction {
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
+
+            if(username.length()<5){
+               System.out.println("用户名长度不少于5个字符,请重新输入:");
+               username = this.scanner.nextLine();
+            }
             
            try(Connection connection = DriverManager.getConnection(DB_URL);
            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
@@ -52,7 +59,7 @@ public class MyUserRegister implements MyAction {
                 if (resultSet.next()) {
                     String name = resultSet.getString("username");
                     if (username.equals(name)) {
-                        System.out.println("用户名已存在，请重新输入");
+                        System.out.println("用户名已存在，请重新输入:");
                          username = this.scanner.nextLine();
                     }
                 }
@@ -61,15 +68,27 @@ public class MyUserRegister implements MyAction {
             }
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
+            while(true){
+            if (validatePassword(password)) {
+                break;
+            } else {
+                System.out.println("注意!密码必须包含大小写字母、数字、标点符号且不少于8位!");
+                System.out.print("请重新输入密码:");
+                password = this.scanner.nextLine();
+            }
+            }
+            System.out.print("请输入你的邮箱:");
+            String userMail = this.scanner.nextLine();
 
-            System.out.print("请输入你的身份:manager or user:");
-            String userStatus = this.scanner.nextLine();
 
-
-            boolean success = this.userManager.registerUser(username, password,userStatus);
+            boolean success = this.userManager.registerUser(username, password,userMail);
             if(success){
-                System.out.println("注册成功,返回登录：login");
+                System.out.println("注册成功,返回登录：login,q退出");
                 userInput = this.scanner.nextLine();
+
+                if (userInput.equals("q")) {
+                    break; 
+                }
 
             String actionName = null;
             for(MyAction oneAction: list) {
@@ -83,4 +102,17 @@ public class MyUserRegister implements MyAction {
             }
         }
     } 
+     public boolean validatePassword(String password) {
+    // 判断密码长度大于8个字符
+    if (password.length() <= 8) {
+        return false;
+    }
+
+    // 密码正则表达式：包含大小写字母、数字和标点符号，且长度大于8
+    String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{9,}$";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(password);
+
+    return matcher.matches();
+    }
 }
