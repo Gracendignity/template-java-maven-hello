@@ -39,7 +39,7 @@ public class MyLogin implements MyAction {
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
             
-            MyPasswordSecurity.generateHashedPassword(password);
+            MyPasswordSecurity.PasswordEncryption(password);
 
             boolean success = this.userManager.login(username, password);
             if(success){
