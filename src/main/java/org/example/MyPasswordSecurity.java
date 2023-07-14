@@ -37,32 +37,33 @@ public class MyPasswordSecurity {
     }
     public static void hidePassword(String password){
 
-        Scanner input = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
+            // 获取控制台对象
+            Console console = System.console();
+            
+            if (console == null) {
+                System.out.println("No console available. Please run the program from the command line.");
+                System.exit(1);
+            }
+            
+            // 读取密码
+            char[] passwordArray = console.readPassword("");
+            System.out.println("是否要显示密码:Yes or No");
+            String Input = sc.nextLine();
 
-        // 获取控制台对象
-        Console console = System.console();
-        
-        if (console == null) {
-            System.out.println("No console available. Please run the program from the command line.");
-            System.exit(1);
-        }
-        
-        // 读取密码
-        char[] passwordArray = console.readPassword("");
-        
-        // 打印星号代替密码
-        Arrays.fill(passwordArray, '*');
-        System.out.println(new String(passwordArray));
+            if(Input.equals("Yes")){
+                System.out.println(new String(passwordArray)); 
+            }
+            
+      else{
 
+            // 打印星号代替密码
+            Arrays.fill(passwordArray, '*');
+            System.out.println(new String(passwordArray));
+      }
 
-        // 清除密码的字符数组
-        Arrays.fill(passwordArray, ' ');
-       
-        System.out.println("是否要显示密码:Yes or No");
-        String Input = input.nextLine();
-
-        if(Input.equals("Yes")){
-            System.out.println(new String(passwordArray)); 
+            // 清除密码的字符数组
+            Arrays.fill(passwordArray, ' ');
         }
     }
 }
