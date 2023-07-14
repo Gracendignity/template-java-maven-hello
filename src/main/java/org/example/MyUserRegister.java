@@ -58,8 +58,8 @@ public class MyUserRegister implements MyAction {
                 e.printStackTrace();
             }
 
-            System.out.print("请输入密码:");
-            String password = this.scanner.nextLine();
+            String password = "";
+            MyPasswordSecurity.hidePassword(password);
             
             while(!validatePassword(password))
             {
@@ -69,7 +69,6 @@ public class MyUserRegister implements MyAction {
                break;
             }
             password=MyPasswordSecurity.PasswordEncryption(password);
-            System.out.println(password);
             System.out.print("请输入你的邮箱:");
             String userMail = this.scanner.nextLine();
 
