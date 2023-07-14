@@ -74,11 +74,8 @@ public class MyUserRegister implements MyAction {
             } else {
                 System.out.println("注意!密码必须包含大小写字母、数字、标点符号且不少于8位!");
                 System.out.print("请重新输入密码:");
-                password = this.scanner.nextLine();
-                if (validatePassword(password)) {
-                    break;
-                } 
             }
+               break;
             }
             System.out.print("请输入你的邮箱:");
             String userMail = this.scanner.nextLine();
