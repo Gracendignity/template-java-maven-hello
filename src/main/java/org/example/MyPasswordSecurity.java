@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 public class MyPasswordSecurity {
      
       // 生成密码的哈希值
-      public static void PasswordEncryption(String password) {
+      public static String PasswordEncryption(String password) {
         try {
             // 创建MessageDigest对象，使用MD5算法进行加密
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -27,9 +27,10 @@ public class MyPasswordSecurity {
                 encryptedPassword = "0" + encryptedPassword;
             }
             
-            System.out.println("Encrypted password: " + encryptedPassword);
+            return  encryptedPassword;
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Error: MD5 algorithm not available.");
         }
+        return null;
       }
 }

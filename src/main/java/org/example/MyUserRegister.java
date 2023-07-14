@@ -60,9 +60,6 @@ public class MyUserRegister implements MyAction {
 
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
-
-
-            MyPasswordSecurity.PasswordEncryption(password);
             
             while(!validatePassword(password))
             {
@@ -71,6 +68,8 @@ public class MyUserRegister implements MyAction {
                 password = this.scanner.nextLine();
                break;
             }
+            password=MyPasswordSecurity.PasswordEncryption(password);
+            System.out.println(password);
             System.out.print("请输入你的邮箱:");
             String userMail = this.scanner.nextLine();
 
