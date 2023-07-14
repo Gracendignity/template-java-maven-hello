@@ -58,8 +58,11 @@ public class MyUserRegister implements MyAction {
                 e.printStackTrace();
             }
 
-            String password = "";
-            MyPasswordSecurity.generateHashedPassword(password);
+            System.out.print("请输入密码:");
+            String password = this.scanner.nextLine();
+
+
+            password=MyPasswordSecurity.generateHashedPassword(password);
             
             while(!validatePassword(password))
             {
