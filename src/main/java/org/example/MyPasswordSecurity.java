@@ -6,11 +6,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class MyPasswordSecurity {
-     
       // 生成密码的哈希值
-      public static String PasswordEncryption(String password) {
+    public static String PasswordEncryption(String password) {
         try {
             // 创建MessageDigest对象，使用MD5算法进行加密
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -34,8 +34,11 @@ public class MyPasswordSecurity {
             System.out.println("Error: MD5 algorithm not available.");
         }
         return null;
-      }
-      public static void hidePassword(String password){
+    }
+    public static void hidePassword(String password){
+
+        Scanner input = new Scanner(System.in);
+
         // 获取控制台对象
         Console console = System.console();
         
@@ -45,14 +48,21 @@ public class MyPasswordSecurity {
         }
         
         // 读取密码
-        char[] passwordArray = console.readPassword("请输入密码: ");
+        char[] passwordArray = console.readPassword("");
         
         // 打印星号代替密码
-        //Arrays.fill(passwordArray, '*');
+        Arrays.fill(passwordArray, '*');
         System.out.println(new String(passwordArray));
-        
+
+
         // 清除密码的字符数组
         Arrays.fill(passwordArray, ' ');
+       
+        System.out.println("是否要显示密码:Yes or No");
+        String Input = input.nextLine();
 
+        if(Input.equals("Yes")){
+            System.out.println(new String(passwordArray)); 
+        }
     }
 }
