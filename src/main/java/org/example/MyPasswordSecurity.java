@@ -23,7 +23,7 @@ public class MyPasswordSecurity {
                   hexString.append(hex);
               }
               
-              return hexString.toString();
+              System.out.println(hexString.toString());
           } catch (NoSuchAlgorithmException e) {
               e.printStackTrace();
           }

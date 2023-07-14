@@ -62,7 +62,7 @@ public class MyUserRegister implements MyAction {
             String password = this.scanner.nextLine();
 
 
-            password=MyPasswordSecurity.generateHashedPassword(password);
+            MyPasswordSecurity.generateHashedPassword(password);
             
             while(!validatePassword(password))
             {
@@ -95,7 +95,7 @@ public class MyUserRegister implements MyAction {
     // 密码正则表达式：包含大小写字母、数字和标点符号，且长度大于8
     String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{9,}$";
     regex = MyPasswordSecurity.generateHashedPassword(regex);
-    
+
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(password);
 
