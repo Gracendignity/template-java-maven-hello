@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-
 
 public class MyPasswordManager implements MyAction {
 
@@ -47,12 +44,6 @@ public class MyPasswordManager implements MyAction {
     }
     public void changePassword(){
       
-        List<MyAction> list = new ArrayList<MyAction>();
-         
-        MyUserManager userManager=new MyUserManager();
-        MyLogin login = new MyLogin(scanner,userManager);
-        list.add(login);
-
         String userInput = "";
 
         while(true) {
@@ -74,38 +65,23 @@ public class MyPasswordManager implements MyAction {
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
                
-               System.out.println("修改密码成功,请重新登录:login，q退出");
+               System.out.println("修改密码成功，q退出当前页面");
                userInput = this.scanner.nextLine();
                
                if (userInput.equals("q")) {
                 break; 
             }
-
-            String actionName = null;
-            for(MyAction oneAction: list) {
-                actionName = oneAction.getActionName();
-
-                if (userInput.equalsIgnoreCase(actionName)) {
-                    oneAction.run(null);
-           }
-         } 
-         break;
         }
         else {
                System.out.println("User not found!");
            }
-       } catch(SQLException e) {
+        }
+        catch(SQLException e) {
            System.out.println("Error updating user information: " + e.getMessage());
        }
         }
     }
     public void resetPassword(){
-
-        List<MyAction> list = new ArrayList<MyAction>();
-         
-        MyUserManager userManager=new MyUserManager();
-        MyLogin login = new MyLogin(scanner,userManager);
-        list.add(login);
 
         String userInput = "";
 
@@ -132,22 +108,12 @@ public class MyPasswordManager implements MyAction {
             
             boolean success = this.userManager.registerUser(username, password,userStatus);
             if(success){
-                System.out.println("重置密码成功，重新登录:login，q退出");
+                System.out.println("重置密码成功，q退出");
                 userInput = this.scanner.nextLine();
 
                 if (userInput.equals("q")) {
                     break; 
                 }
-
-            String actionName = null;
-            for(MyAction oneAction: list) {
-                actionName = oneAction.getActionName();
-
-                if (userInput.equalsIgnoreCase(actionName)) {
-                    oneAction.run(null);
-           }
-         }
-         break; 
         }
         } else {
             System.out.println("User not found!");

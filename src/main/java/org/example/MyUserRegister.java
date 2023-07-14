@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,18 +26,11 @@ public class MyUserRegister implements MyAction {
         return MyUserRegister.ACTION_NAME;
     }
 
+    String userInput = "";
+
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入注册界面!");
-        
-        List<MyAction> list = new ArrayList<MyAction>();
-         
-        MyUserManager userManager=new MyUserManager();
-        MyLogin login = new MyLogin(scanner,userManager);
-        list.add(login);
-
-        String userInput = "";
-
 
         while(true) {
             System.out.print("请输入用户名:");
@@ -82,22 +73,12 @@ public class MyUserRegister implements MyAction {
 
             boolean success = this.userManager.registerUser(username, password,userMail);
             if(success){
-                System.out.println("注册成功,返回登录：login,q退出");
+                System.out.println("注册成功! q退出注册界面");
                 userInput = this.scanner.nextLine();
 
                 if (userInput.equals("q")) {
                     break; 
                 }
-
-            String actionName = null;
-            for(MyAction oneAction: list) {
-                actionName = oneAction.getActionName();
-
-                if (userInput.equalsIgnoreCase(actionName)) {
-                    oneAction.run(null);
-           }
-         } 
-                break;
             }
         }
     } 
