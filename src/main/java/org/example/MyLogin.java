@@ -30,6 +30,7 @@ public class MyLogin implements MyAction {
         MyPasswordManager passWord = new MyPasswordManager(scanner,userManager);
         list.add(passWord);
 
+
         System.out.println("欢迎进入登录界面!");
         while(true) {
             System.out.print("请输入用户名:");
@@ -37,6 +38,8 @@ public class MyLogin implements MyAction {
 
             System.out.print("请输入密码:");
             String password = this.scanner.nextLine();
+            
+            MyPasswordSecurity.generateHashedPassword(password);
 
             boolean success = this.userManager.login(username, password);
             if(success){
