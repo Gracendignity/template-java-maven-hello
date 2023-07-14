@@ -65,7 +65,7 @@ public class MyUserRegister implements MyAction {
             {
                 System.out.println("注意!密码必须包含大小写字母、数字、标点符号且不少于8位!");
                 System.out.print("请重新输入密码:");
-                password = this.scanner.nextLine();
+                MyPasswordSecurity.hidePassword(password);
                break;
             }
             password=MyPasswordSecurity.PasswordEncryption(password);

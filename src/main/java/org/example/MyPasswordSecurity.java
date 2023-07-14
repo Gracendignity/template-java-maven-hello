@@ -49,7 +49,7 @@ public class MyPasswordSecurity {
         
         // 打印星号代替密码
         Arrays.fill(passwordArray, '*');
-        System.out.println("Entered password: " + new String(passwordArray));
+        System.out.println(new String(passwordArray));
         
         // 清除密码的字符数组
         Arrays.fill(passwordArray, ' ');
