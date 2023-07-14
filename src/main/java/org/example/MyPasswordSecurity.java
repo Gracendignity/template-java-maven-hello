@@ -1,7 +1,5 @@
 package org.example;
 
-import java.io.Console;
-import java.util.Arrays;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -32,27 +30,4 @@ public class MyPasswordSecurity {
           
           return null;
       }
-      public static void hidePassword(String password){
-        // 获取控制台对象
-        Console console = System.console();
-        
-        if (console == null) {
-            System.out.println("No console available. Please run the program from the command line.");
-            System.exit(1);
-        }
-        
-        // 读取密码
-        char[] passwordArray = console.readPassword("Enter your password: ");
-        
-       // 替换回显字符为星号
-       for (int i = 0; i < passwordArray.length; i++) {
-        console.format("*");
-    }
-        console.format("%n"); // 换行
-        
-        // 清除密码的字符数组
-        Arrays.fill(passwordArray, ' ');
-      }
-    
-    
 }

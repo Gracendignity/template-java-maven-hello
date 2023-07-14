@@ -35,10 +35,11 @@ public class MyLogin implements MyAction {
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
-
-            String password = "";
             
-            MyPasswordSecurity.hidePassword(password);
+            System.out.print("请输入密码:");
+            String password = this.scanner.nextLine();
+            
+            password=MyPasswordSecurity.generateHashedPassword(password);
 
             boolean success = this.userManager.login(username, password);
             if(success){

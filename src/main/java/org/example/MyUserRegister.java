@@ -59,7 +59,7 @@ public class MyUserRegister implements MyAction {
             }
 
             String password = "";
-            MyPasswordSecurity.hidePassword(password);
+            MyPasswordSecurity.generateHashedPassword(password);
             
             while(!validatePassword(password))
             {
