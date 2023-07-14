@@ -44,9 +44,11 @@ public class MyPasswordSecurity {
         // 读取密码
         char[] passwordArray = console.readPassword("Enter your password: ");
         
-       // 打印星号代替密码
-       Arrays.fill(passwordArray, '*');
-       System.out.println("Entered password: " + new String(passwordArray));
+       // 替换回显字符为星号
+       for (int i = 0; i < passwordArray.length; i++) {
+        console.format("*");
+    }
+        console.format("%n"); // 换行
         
         // 清除密码的字符数组
         Arrays.fill(passwordArray, ' ');
