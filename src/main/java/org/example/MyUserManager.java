@@ -11,7 +11,7 @@ public class MyUserManager {
 
     public boolean registerUser(String username, String password,String userMail) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (admin, ynuinfo#777, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setString(3, userMail);

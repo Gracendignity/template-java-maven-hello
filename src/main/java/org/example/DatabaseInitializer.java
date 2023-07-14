@@ -2,6 +2,7 @@ package org.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class DatabaseInitializer {
@@ -15,5 +16,15 @@ public class DatabaseInitializer {
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
+            statement.setString(1, "admin");
+            statement.setString(2, "ynuinfo#777");
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Failed to register user: " + e.getMessage());
+        }
+
     }
 }
