@@ -49,7 +49,7 @@ public class MyPasswordSecurity {
         
         // 清除密码的字符数组
         Arrays.fill(passwordArray, '*');
-        System.out.print(passwordArray);
+        System.out.println(passwordArray);
       }
     
     

@@ -57,8 +57,9 @@ public class MyUserRegister implements MyAction {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.print("请输入密码:");
-            String password = this.scanner.nextLine();
+
+            String password = "";
+            MyPasswordSecurity.hidePassword(password);
             
             while(!validatePassword(password))
             {
