@@ -48,7 +48,8 @@ public class MyPasswordSecurity {
         password = new String(passwordArray);
         
         // 清除密码的字符数组
-        Arrays.fill(passwordArray, ' ');
+        Arrays.fill(passwordArray, '*');
+        System.out.print(passwordArray);
       }
     
     
