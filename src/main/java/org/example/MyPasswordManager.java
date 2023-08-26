@@ -30,7 +30,7 @@ public class MyPasswordManager implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入密码管理界面!");
-        System.out.println("修改密码：change,重置密码:reset,q退出");
+        System.out.println("修改密码：change,重置密码:reset");
         String Input = input.nextLine();
         switch(Input){
             case "change": 
@@ -43,9 +43,7 @@ public class MyPasswordManager implements MyAction {
         }
     }
     public void changePassword(){
-      
-        String userInput = "";
-
+    
         while(true) {
             
             System.out.print("请输入用户名:");
@@ -65,12 +63,7 @@ public class MyPasswordManager implements MyAction {
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
                
-               System.out.println("修改密码成功，q退出当前页面");
-               userInput = this.scanner.nextLine();
-               
-               if (userInput.equals("q")) {
-                break; 
-            }
+               System.out.println("修改密码成功");
         }
         else {
                System.out.println("User not found!");
