@@ -30,7 +30,7 @@ public class MyHelpAction implements MyAction {
         MyUserRegister register = new MyUserRegister(scanner,userManager);
         list.add(register);
 
-        MyPasswordManager passWord = new MyPasswordManager(scanner,userManager);
+        UserPassword passWord = new UserPassword(scanner);
         list.add(passWord);
         
         String userInput = "";

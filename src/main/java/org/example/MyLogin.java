@@ -30,7 +30,7 @@ public class MyLogin implements MyAction {
         List<MyAction> list = new ArrayList<MyAction>();
 
 
-        MyPasswordManager passWord = new MyPasswordManager(scanner,userManager);
+        UserPassword passWord = new UserPassword(scanner);
         list.add(passWord);
 
         System.out.println("欢迎进入登录界面!");
@@ -87,25 +87,6 @@ public class MyLogin implements MyAction {
                 }
                 break;
             }
-            count++;
-            if(count==5){
-              System.out.println("你的账户已被锁定！");
-             }
-             System.out.println("你的账户已被锁定,使用密码管理功能重置密码：passtWord");  
-             userInput = this.scanner.nextLine();
-
-                    if (userInput.equals("q")) {
-                        break; 
-                    }
-                    
-                    String actionName = null;
-                    for(MyAction twoAction: list) {
-                        actionName = twoAction.getActionName();
-        
-                        if (userInput.equalsIgnoreCase(actionName)) {
-                            twoAction.run(null); 
-                        }
-                   }
 
         } 
     }
