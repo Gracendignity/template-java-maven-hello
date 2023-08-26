@@ -32,7 +32,7 @@ public class MyLogin implements MyAction {
 
 
         System.out.println("欢迎进入登录界面!");
-        int count=0;
+        int count=1;
         String password = "";
         while(true) {
             System.out.print("请输入用户名:");
@@ -89,6 +89,7 @@ public class MyLogin implements MyAction {
                 while(true){
                 System.out.print("请重新输入密码:");
                 password = this.scanner.nextLine();
+                MyPasswordSecurity.PasswordEncryption(password);
                 success = this.userManager.login(username, password);
                 if(success){
                       break;
