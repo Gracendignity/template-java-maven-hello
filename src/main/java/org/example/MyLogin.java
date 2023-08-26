@@ -33,20 +33,20 @@ public class MyLogin implements MyAction {
 
         System.out.println("欢迎进入登录界面!");
         int count=1;
-        String password = "";
         while(true) {
-            System.out.print("请输入用户名:");
-            String username = this.scanner.nextLine();
-            
+
+           System.out.print("请输入用户名:");
+           String username = this.scanner.nextLine();
+
             System.out.print("请输入密码:");
-            password = this.scanner.nextLine();
+            String password = this.scanner.nextLine();
             
+
             MyPasswordSecurity.PasswordEncryption(password);
 
             boolean success = this.userManager.login(username, password);
             if(success){
 
-                
                 System.out.println("登录成功!");
                 if(username.equals("admin")){
                 System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
@@ -86,13 +86,12 @@ public class MyLogin implements MyAction {
                 break;
             }
             else{
-                System.out.print("账户或者密码错误！");
                 count++;
                 if(count==5){
                     System.out.print("你的账户已被锁定");
                 }
             }
-          
+        
         } 
     }
  }
