@@ -1,11 +1,10 @@
 package org.example;
 
-import java.io.Console;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
+
 
 public class MyPasswordSecurity {
       // 生成密码的哈希值
@@ -33,25 +32,5 @@ public class MyPasswordSecurity {
             System.out.println("Error: MD5 algorithm not available.");
         }
         return null;
-    }
-    public static void hidePassword(String password){
-
-            // 获取控制台对象
-            Console console = System.console();
-            
-            if (console == null) {
-                System.out.println("No console available. Please run the program from the command line.");
-                System.exit(1);
-            }
-            
-            // 读取密码
-            char[] passwordArray = console.readPassword("");
-    
-            // 打印星号代替密码
-            Arrays.fill(passwordArray, '*');
-            System.out.println(new String(passwordArray));
-
-            // 清除密码的字符数组
-            Arrays.fill(passwordArray, ' ');
     }
 }

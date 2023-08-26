@@ -38,7 +38,6 @@ public class MyLogin implements MyAction {
             
             System.out.print("请输入密码:");
             String password = "";
-            MyPasswordSecurity.hidePassword(password);
             
             MyPasswordSecurity.PasswordEncryption(password);
 
