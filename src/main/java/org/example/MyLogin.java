@@ -89,8 +89,6 @@ public class MyLogin implements MyAction {
                 while(true){
                 System.out.print("请重新输入密码:");
                 password = this.scanner.nextLine();
-                MyPasswordSecurity.PasswordEncryption(password);
-                success = this.userManager.login(username, password);
                 if(success){
                       break;
                 }
