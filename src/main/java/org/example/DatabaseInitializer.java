@@ -7,7 +7,6 @@ import java.sql.Statement;
 
 public class DatabaseInitializer {
     private static final String DB_URL = "jdbc:sqlite:users.db";
-    String password="ynuinfo#777";
     public void initializeDatabase() {
         try (Connection connection = DriverManager.getConnection(DB_URL);
              Statement statement = connection.createStatement()) {
@@ -17,11 +16,12 @@ public class DatabaseInitializer {
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
-
+        String passWord = "ynuinfo#777";
+        passWord = MyPasswordSecurity.PasswordEncryption(passWord);
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
             statement.setString(1, "admin");
-            statement.setString(2, "MyPasswordSecurity.PasswordEncryption(password)");
+            statement.setString(2, passWord);
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Failed to register user: " + e.getMessage());

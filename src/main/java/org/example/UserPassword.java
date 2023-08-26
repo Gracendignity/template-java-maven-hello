@@ -37,12 +37,13 @@ public class UserPassword implements MyAction {
                          changePassword();
                          break;
             case "reset":
-                          resetPassword();
+                          Resetpassword();
                           break;
 
         }
     }
-    public void resetPassword(){
+    public void Resetpassword(){
+        while(true){
            System.out.println("请输入用户名：");
             String username = this.scanner.nextLine();
             
@@ -50,60 +51,70 @@ public class UserPassword implements MyAction {
             String userMail = this.scanner.nextLine();
             
             if (resetPassword(username, userMail)) {
-                System.out.println("重置密码邮件已发送，请检查您的邮箱。");
+                System.out.println("重置密码邮件已发送，请检查您的邮箱。输入q返回登录界面重新登录");
+                String Input = this.scanner.nextLine();
+                if (Input.equals("q")) {
+                 break; 
+                }
             } else {
                 System.out.println("用户名或邮箱地址不正确，请重新输入。");
+                userMail = this.scanner.nextLine();
             }
+        }
     }
     
-    public  boolean resetPassword(String username, String userMail) {
-            // 验证用户名和邮箱地址是否匹配数据库中的数据
-            try (Connection connection = DriverManager.getConnection(DB_URL);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
-                statement.setString(1, username);
-                ResultSet resultSet = statement.executeQuery();
 
-               if (resultSet.next()) {
-                   String storedEmail = resultSet.getString(" userMail");
-                   if ( userMail.equals(storedEmail)){
-                       // 生成随机密码
-                        String newPassword = generateRandomPassword();
-                
-                       // 将新密码发给用户
-                       System.out.println("您的新密码是：" + newPassword);
-
-                       // 保存新密码到数据库中
-                       try (Connection connection1 = DriverManager.getConnection(DB_URL);
-                           PreparedStatement statement1 = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?")) {
-                           statement.setString(1, newPassword);
-                           statement.setString(2, username);
-                           int rowsUpdated = statement.executeUpdate();
-                           if (rowsUpdated > 0) {
-                               System.out.println("password updated successfully!");
-                            }
-                        }  
-                       catch(SQLException e) {
-                            System.out.println("Error updating user information: " + e.getMessage());
-                       }
-                       return true;
+    /**
+     * @param username
+     * @param userMail
+     * @return
+     */
+    public boolean resetPassword(String username, String userMail) {
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+    
+            if (resultSet.next()) {
+                String storedEmail = resultSet.getString("userMail");
+                if (storedEmail != null && userMail.equals(storedEmail)) {
+                    // 生成随机密码
+                    String newPassword = generateRandomPassword();
+    
+                    // 将新密码发给用户
+                    System.out.println("您的新密码是：" + newPassword);
+                    newPassword = MyPasswordSecurity.PasswordEncryption(newPassword);
+                    
+                    // 保存新密码到数据库中
+                    try (PreparedStatement updateStatement = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?")) {
+                        updateStatement.setString(1, newPassword);
+                        updateStatement.setString(2, username);
+                        
+                        int rowsUpdated = updateStatement.executeUpdate();
+                        if (rowsUpdated > 0) {
+                            System.out.println("密码更新成功！");
+                            return true;
+                        } else {
+                            System.out.println("密码更新失败！");
+                        }
+                    } catch (SQLException e) {
+                        // 抛出异常，由外部捕获并处理
+                        throw new SQLException("更新用户信息出错: " + e.getMessage(), e);
                     }
-               }
-               else{
-                return false;
-               }
-            } 
-               catch (SQLException e) {
-               System.out.println("Failed to reset: " + e.getMessage());
-               }  
-            return false; 
-    }      
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("重置密码失败: " + e.getMessage());
+        }
+        return false;
+    }
     public static String generateRandomPassword() {
 
-            // 生成一个随机的8位密码
+            // 生成一个随机的9位密码
             String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder password = new StringBuilder();
             Random random = new Random();
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 9; i++) {
                 int index = random.nextInt(chars.length());
                 password.append(chars.charAt(index));
             }
@@ -122,7 +133,7 @@ public class UserPassword implements MyAction {
     
                 System.out.print("请输入新密码:");
                 String newPassword = this.scanner.nextLine();
-                
+                newPassword = MyPasswordSecurity.PasswordEncryption(newPassword);
                 try (Connection connection = DriverManager.getConnection(DB_URL);
                 PreparedStatement statement = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?")) {
                 statement.setString(1, newPassword);
