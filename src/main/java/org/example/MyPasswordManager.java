@@ -3,6 +3,8 @@ package org.example;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.util.Scanner;
 
@@ -43,14 +45,14 @@ public class MyPasswordManager implements MyAction {
         }
     }
     public void changePassword(){
-    
+        String Input = " ";
         while(true) {
             
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
 
             System.out.print("请输入旧密码:");
-            String password = this.scanner.nextLine();
+            String oldPassword = this.scanner.nextLine();
 
             System.out.print("请输入新密码:");
             String newPassword = this.scanner.nextLine();
@@ -63,8 +65,12 @@ public class MyPasswordManager implements MyAction {
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
                
-               System.out.println("修改密码成功");
-        }
+               System.out.println("修改密码成功,输入q返回登录界面重新登录");
+               Input = this.scanner.nextLine();
+               if (Input.equals("q")) {
+                break; 
+            }
+    }
         else {
                System.out.println("User not found!");
            }
@@ -72,7 +78,6 @@ public class MyPasswordManager implements MyAction {
         catch(SQLException e) {
            System.out.println("Error updating user information: " + e.getMessage());
        }
-       break;
         }
     }
     public void resetPassword(){
@@ -94,13 +99,16 @@ public class MyPasswordManager implements MyAction {
             System.out.print("请输入需要重置密码用户的用户名:");
             username = this.scanner.nextLine();
 
-            System.out.print("请输入重置后的密码:");
-            String password = this.scanner.nextLine();
+            System.out.print("请输入你的邮箱:");
+            String userMail = this.scanner.nextLine();
 
-            System.out.print("请输入你的身份:manager or user:");
-            String userStatus = this.scanner.nextLine();
+            System.out.print("重置后的密码:");
+            SecureRandom random = new SecureRandom();
+            String newPassword = new BigInteger(130, random).toString(32);
+
             
-            boolean success = this.userManager.registerUser(username, password,userStatus);
+            
+            boolean success = this.userManager.registerUser(username, newPassword,userMail);
             if(success){
                 System.out.println("重置密码成功，q退出");
                 userInput = this.scanner.nextLine();
