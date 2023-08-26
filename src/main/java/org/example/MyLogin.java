@@ -86,12 +86,18 @@ public class MyLogin implements MyAction {
                 break;
             }
             else{ 
+                while(true){
                 System.out.print("请重新输入密码:");
                 password = this.scanner.nextLine();
+                success = this.userManager.login(username, password);
+                if(success){
+                      break;
+                }
                 count++;
                         if(count==5){
                             System.out.println("你的账户已被锁定!");
                         }
+                    }
                }    
         } 
     }
