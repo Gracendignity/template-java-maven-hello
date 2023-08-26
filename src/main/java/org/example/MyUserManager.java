@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class MyUserManager {
     private static final String DB_URL = "jdbc:sqlite:users.db";
@@ -46,8 +47,8 @@ public class MyUserManager {
                     }
                     else{
                         System.out.println("Incorrect password!");
-                        }
-                }
+                        }    
+                    }
                 else{
                     System.out.println("Username does not exist.");
                 }
