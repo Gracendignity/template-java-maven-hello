@@ -60,12 +60,13 @@ public class MyUserRegister implements MyAction {
 
             System.out.print("请输入密码:");
             String password = "";
+            password = this.scanner.nextLine();
             
             while(!validatePassword(password))
             {
                 System.out.println("注意!密码必须包含大小写字母、数字、标点符号且不少于8位!");
                 System.out.print("请重新输入密码:");
-
+                password = this.scanner.nextLine();
                break;
             }
             password=MyPasswordSecurity.PasswordEncryption(password);
