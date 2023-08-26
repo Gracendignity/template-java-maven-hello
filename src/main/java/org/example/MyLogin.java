@@ -32,12 +32,13 @@ public class MyLogin implements MyAction {
 
 
         System.out.println("欢迎进入登录界面!");
+        int count=0;
+        String password = "";
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
             
             System.out.print("请输入密码:");
-            String password = "";
             password = this.scanner.nextLine();
             
             MyPasswordSecurity.PasswordEncryption(password);
@@ -84,6 +85,14 @@ public class MyLogin implements MyAction {
                 }
                 break;
             }
-        }
-    } 
-}
+            else{ 
+                System.out.print("请重新输入密码:");
+                password = this.scanner.nextLine();
+                count++;
+                        if(count==5){
+                            System.out.println("你的账户已被锁定!");
+                        }
+               }    
+        } 
+    }
+ }
