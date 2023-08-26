@@ -1,6 +1,9 @@
 package org.example;
 
 import java.util.Scanner;
+
+import javafx.fxml.FXMLLoader;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -30,7 +33,6 @@ public class MyLogin implements MyAction {
         MyPasswordManager passWord = new MyPasswordManager(scanner,userManager);
         list.add(passWord);
 
-
         System.out.println("欢迎进入登录界面!");
         int count=1;
         while(true) {
@@ -42,7 +44,7 @@ public class MyLogin implements MyAction {
             String password = this.scanner.nextLine();
             
 
-            MyPasswordSecurity.PasswordEncryption(password);
+            password=MyPasswordSecurity.PasswordEncryption(password);
 
             boolean success = this.userManager.login(username, password);
             if(success){
@@ -85,13 +87,26 @@ public class MyLogin implements MyAction {
                 }
                 break;
             }
-            else{
-                count++;
-                if(count==5){
-                    System.out.print("你的账户已被锁定");
-                }
-            }
+            count++;
+            if(count==5){
+              System.out.println("你的账户已被锁定！");
+             }
+             System.out.println("你的账户已被锁定,使用密码管理功能重置密码：passtWord");  
+             userInput = this.scanner.nextLine();
+
+                    if (userInput.equals("q")) {
+                        break; 
+                    }
+                    
+                    String actionName = null;
+                    for(MyAction twoAction: list) {
+                        actionName = twoAction.getActionName();
         
+                        if (userInput.equalsIgnoreCase(actionName)) {
+                            twoAction.run(null); 
+                        }
+                   }
+
         } 
     }
  }
