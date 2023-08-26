@@ -72,6 +72,7 @@ public class MyPasswordManager implements MyAction {
         catch(SQLException e) {
            System.out.println("Error updating user information: " + e.getMessage());
        }
+       break;
         }
     }
     public void resetPassword(){
