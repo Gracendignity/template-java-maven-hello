@@ -57,9 +57,9 @@ public class MyCustomerManager implements MyAction {
                          checkInfo();
                          break;
         }
-        System.out.println("是否要返回上一级：Y/N:");
+        System.out.println("是否要返回上一级：yes/no:");
         userInput = this.scanner.nextLine();
-        if (userInput.equals("Y")) {
+        if (userInput.equals("yes")) {
                     System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
                     userInput = this.scanner.nextLine();
 
@@ -115,7 +115,7 @@ public class MyCustomerManager implements MyAction {
 
             // 确认是否继续删除
             System.out.print("Are you sure you want to delete row with username " + username + "? (Y/N): ");
-            String confirmation = this.scanner.next();
+            String confirmation = this.scanner.nextLine();
             if (confirmation.equalsIgnoreCase("Y")) {
                 statement.setString(1, username);
                 int rowsAffected = statement.executeUpdate();
@@ -140,7 +140,7 @@ public class MyCustomerManager implements MyAction {
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager WHERE id = ? OR username = ?")) {
             // 从用户输入获取查询条件
             System.out.print("Enter the ID: ");
-            int id = this.scanner.nextInt();
+            int id = Integer.parseInt(this.scanner.nextLine());
 
             System.out.print("Enter the username: ");
             String username = this.scanner.nextLine();
