@@ -1,6 +1,7 @@
 package org.example;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,18 +50,18 @@ public class MyProductManager implements MyAction{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Product")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        int id = resultSet.getInt("productID");
+        String id = resultSet.getString("productID");
         String productName = resultSet.getString("productName");
         String manufacturer = resultSet.getString("manufacturer");
-        String  productionDate = resultSet.getString(" productionDate");
+    
         String model = resultSet.getString("model");
-        String purchasePricer = resultSet.getString("purchasePrice");
-        String retailPrice = resultSet.getString("retailPrice");
+        Double purchasePricer = resultSet.getDouble("purchasePrice");
+        Double retailPrice = resultSet.getDouble("retailPrice");
         String quantity = resultSet.getString("quantity");
         System.out.println("ID: " + id);
         System.out.println("productName: " + productName);
         System.out.println("manufacturer: " + manufacturer);
-        System.out.println("productionDate: " + productionDate);
+       
         System.out.println("model: " + model);
         System.out.println("purchasePricer: " + purchasePricer);
         System.out.println("retailPrice: " + retailPrice);

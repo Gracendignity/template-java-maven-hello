@@ -46,14 +46,13 @@ public class MyCustomerManager implements MyAction {
         int id = resultSet.getInt("id");
         String username = resultSet.getString("username");
         String userLevel = resultSet.getString("userLevel");
-        String  registrationTime = resultSet.getString(" registrationTime");
+    
         double totalAmount = resultSet.getDouble("totalAmount");
         String phoneNumber = resultSet.getString("phoneNumber");
         String userMail = resultSet.getString("userMail");
         System.out.println("ID: " + id);
         System.out.println("Username: " + username);
         System.out.println("UserLevel: " + userLevel);
-        System.out.println("RegistrationTime: " + registrationTime);
         System.out.println("totalAmount: " + totalAmount);
         System.out.println("phoneNumber: " + phoneNumber);
         System.out.println("User Mail: " + userMail);
@@ -73,7 +72,7 @@ public class MyCustomerManager implements MyAction {
 
             // 确认是否继续删除
             System.out.print("Are you sure you want to delete row with ID " + username + "? (Y/N): ");
-            String confirmation = scanner.next();
+            String confirmation = this.scanner.next();
             if (confirmation.equalsIgnoreCase("Y")) {
                 statement.setString(0, confirmation);
                 int rowsAffected = statement.executeUpdate();

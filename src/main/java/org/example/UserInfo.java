@@ -27,22 +27,18 @@ public class UserInfo implements MyAction {
         System.out.println("请输入你的用户名:");
         String username = this.scanner.nextLine();
 
-        System.out.println("请输入你的注册账户的日期:");
-        String egistrationTime = this.scanner.nextLine();
-
         System.out.println("请输入你的电话号码:");
         String phoneNumber = this.scanner.nextLine();
 
         
         System.out.println("请输入你注册时的邮箱:");
-        String userMail = this.scanner.nextLine();
+        String userEMail = this.scanner.nextLine();
 
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO manager (username, registrationTime, phoneNumber,userEmail) VALUES (?,?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO manager (username, phoneNumber,userEmail) VALUES (?,?, ?, ?)")) {
             statement.setString(1, username);
-            statement.setString(2, egistrationTime);
-            statement.setString(3, phoneNumber);
-            statement.setString(4, userMail);
+            statement.setString(2, phoneNumber);
+            statement.setString(3, userEMail);
             statement.executeUpdate();
             System.out.println("写入数据库成功!");
         } catch (SQLException e) {
