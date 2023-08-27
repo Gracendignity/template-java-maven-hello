@@ -58,14 +58,28 @@ public class MyLogin implements MyAction {
 
                 System.out.println("登录成功!");
                 if(username.equals("admin")){
-                System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
+                while(true){
+                    System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
                     userInput = this.scanner.nextLine();
-
-                    
-                    if (userInput.equals("q")) {
+                    if (userInput.equals("passWord")) {
                         break; 
                     }
-                    
+                    if (userInput.equals("customer")) {
+                        break; 
+                    }
+                    if (userInput.equals("product")) {
+                        break; 
+                       
+                    }
+                    if (userInput.equals("q")) {
+                        break; 
+                       
+                    }
+                }
+                if (userInput.equals("q")) {
+                    break; 
+                   
+                }
                     String actionName = null;
                     for(MyAction twoAction: list) {
                         actionName = twoAction.getActionName();
@@ -93,13 +107,20 @@ public class MyLogin implements MyAction {
                         }
                    }
                    System.out.println("你的个人信息已完善!"); 
+                while(true){
                 System.out.println("请输入你的指令:密码管理:passWord,购物：shopping,q 退出");
                     userInput = this.scanner.nextLine();
+                    if (userInput.equals("passWord")) {
+                        break; 
+                    }
 
+                    if (userInput.equals("shopping")) {
+                        break; 
+                    }
                     if (userInput.equals("q")) {
                         break; 
                     }
-                    
+                }
                     String actionName1 = null;
                     for(MyAction twoAction: list) {
                         actionName1 = twoAction.getActionName();
