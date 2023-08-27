@@ -151,7 +151,6 @@ public class MyCustomerManager implements MyAction {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String userLevel = resultSet.getString("userLevel");
-        
                 double totalAmount = resultSet.getDouble("totalAmount");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String userEMail = resultSet.getString("userEMail");
