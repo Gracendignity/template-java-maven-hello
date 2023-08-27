@@ -36,6 +36,9 @@ public class MyLogin implements MyAction {
 
         MyCustomerManager customer = new MyCustomerManager(scanner);
         list.add(customer);
+        
+        MyProductManager product = new MyProductManager(scanner);
+        list.add(product);
 
         System.out.println("欢迎进入登录界面!");
         int count=1;

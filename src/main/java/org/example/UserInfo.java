@@ -38,15 +38,15 @@ public class UserInfo implements MyAction {
         String userMail = this.scanner.nextLine();
 
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Manager (username, registrationTime, phoneNumber,userMail) VALUES (?,?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO manager (username, registrationTime, phoneNumber,userEmail) VALUES (?,?, ?, ?)")) {
             statement.setString(1, username);
             statement.setString(2, egistrationTime);
             statement.setString(3, phoneNumber);
             statement.setString(4, userMail);
             statement.executeUpdate();
-            System.out.println("User registered successfully!");
+            System.out.println("写入数据库成功!");
         } catch (SQLException e) {
-            System.out.println("Failed to register user: " + e.getMessage());
+            System.out.println("写入数据库失败: " + e.getMessage());
         }
 
     }

@@ -40,7 +40,7 @@ public class MyCustomerManager implements MyAction {
     }
     public void customerList(){
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Manager")) {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
         int id = resultSet.getInt("id");
@@ -66,7 +66,7 @@ public class MyCustomerManager implements MyAction {
 
     public void deleteInfo(){
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM Manager WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM manager WHERE id = ?")) {
             // 从用户输入获取要删除的行的唯一标识
             System.out.print("输入要删除客户的用户名:");
             String username = this.scanner.nextLine();
@@ -95,7 +95,7 @@ public class MyCustomerManager implements MyAction {
      */
     public void checkInfo(){
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Manager WHERE id = ? OR username = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager WHERE id = ? OR username = ?")) {
             // 从用户输入获取查询条件
             System.out.print("Enter the ID: ");
             int id = this.scanner.nextInt();

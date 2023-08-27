@@ -53,7 +53,7 @@ public class MyProductManager implements MyAction{
         String productName = resultSet.getString("productName");
         String manufacturer = resultSet.getString("manufacturer");
         String  productionDate = resultSet.getString(" productionDate");
-        double model = resultSet.getDouble("model");
+        String model = resultSet.getString("model");
         String purchasePricer = resultSet.getString("purchasePrice");
         String retailPrice = resultSet.getString("retailPrice");
         String quantity = resultSet.getString("quantity");
