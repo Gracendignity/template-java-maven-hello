@@ -58,7 +58,7 @@ public class MyUserRegister implements MyAction {
                 e.printStackTrace();
             }
 
-            System.out.print("请输入密码:");
+            System.out.println("请输入密码:");
             String password = "";
             password = this.scanner.nextLine();
             

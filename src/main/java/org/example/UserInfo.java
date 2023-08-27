@@ -36,9 +36,9 @@ public class UserInfo implements MyAction {
 
         try (Connection connection = DriverManager.getConnection(DB_Manager);
              PreparedStatement statement = connection.prepareStatement("INSERT INTO manager (username, phoneNumber,userEmail) VALUES (?, ?, ?)")) {
-            statement.setString(2, username);
-            statement.setString(4, phoneNumber);
-            statement.setString(5, userEMail);
+            statement.setString(1, username);
+            statement.setString(2, phoneNumber);
+            statement.setString(3, userEMail);
             statement.executeUpdate();
             System.out.println("写入数据库成功!");
         } catch (SQLException e) {

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MyCustomerManager implements MyAction {
     private static final String DB_Manager = "jdbc:sqlite:manager.db";
@@ -24,11 +26,28 @@ public class MyCustomerManager implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入客户管理界面!");
+        List<MyAction> list = new ArrayList<MyAction>();
 
-        System.out.println("列出客户所有信息：list,删除客户信息:delete,查询客户信息:check");
+
+        UserPassword passWord = new UserPassword(scanner);
+        list.add(passWord);
+        
+        UserInfo info = new UserInfo(scanner);
+        list.add(info);
+
+        MyCustomerManager customer = new MyCustomerManager(scanner);
+        list.add(customer);
+        
+        MyProductManager product = new MyProductManager(scanner);
+        list.add(product);
+
+        String userInput ="";
+        while(true){
+         
+        System.out.println("列出客户所有信息：List,删除客户信息:delete,查询客户信息:check");
         String Input = this.scanner.nextLine();
         switch(Input){
-            case "list": 
+            case "List": 
                          customerList();
                          break;
             case "delete":
@@ -36,8 +55,32 @@ public class MyCustomerManager implements MyAction {
                           break;
             case "check":
                          checkInfo();
+                         break;
+        }
+        System.out.println("是否要返回上一级：Y/N:");
+        userInput = this.scanner.nextLine();
+        if (userInput.equals("Y")) {
+                    System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
+                    userInput = this.scanner.nextLine();
+
+                    
+                    if (userInput.equals("q")) {
+                        break; 
+                    }
+                    
+                    String actionName = null;
+                    for(MyAction twoAction: list) {
+                        actionName = twoAction.getActionName();
+        
+                        if (userInput.equalsIgnoreCase(actionName)) {
+                            twoAction.run(null); 
+                        }
+                   }
+             break;
+            }
         }
     }
+
     public void customerList(){
         try (Connection connection = DriverManager.getConnection(DB_Manager);
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager")) {
@@ -49,15 +92,15 @@ public class MyCustomerManager implements MyAction {
     
         double totalAmount = resultSet.getDouble("totalAmount");
         String phoneNumber = resultSet.getString("phoneNumber");
-        String userMail = resultSet.getString("userMail");
+        String userEMail = resultSet.getString("userEMail");
         System.out.println("ID: " + id);
         System.out.println("Username: " + username);
         System.out.println("UserLevel: " + userLevel);
         System.out.println("totalAmount: " + totalAmount);
         System.out.println("phoneNumber: " + phoneNumber);
-        System.out.println("User Mail: " + userMail);
+        System.out.println("User Mail: " + userEMail);
         System.out.println("------------------------");
-       }
+        }
       } catch (SQLException e) {
     System.out.println("Failed to retrieve data from the table: " + e.getMessage());
      }
@@ -65,16 +108,16 @@ public class MyCustomerManager implements MyAction {
 
     public void deleteInfo(){
         try (Connection connection = DriverManager.getConnection(DB_Manager);
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM manager WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM manager WHERE username = ?")) {
             // 从用户输入获取要删除的行的唯一标识
             System.out.print("输入要删除客户的用户名:");
             String username = this.scanner.nextLine();
 
             // 确认是否继续删除
-            System.out.print("Are you sure you want to delete row with ID " + username + "? (Y/N): ");
+            System.out.print("Are you sure you want to delete row with username " + username + "? (Y/N): ");
             String confirmation = this.scanner.next();
             if (confirmation.equalsIgnoreCase("Y")) {
-                statement.setString(0, confirmation);
+                statement.setString(1, username);
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Row deleted successfully!");
@@ -108,17 +151,16 @@ public class MyCustomerManager implements MyAction {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String userLevel = resultSet.getString("userLevel");
-                String  registrationTime = resultSet.getString(" registrationTime");
+        
                 double totalAmount = resultSet.getDouble("totalAmount");
                 String phoneNumber = resultSet.getString("phoneNumber");
-                String userMail = resultSet.getString("userMail");
+                String userEMail = resultSet.getString("userEMail");
                 System.out.println("ID: " + id);
                 System.out.println("Username: " + username);
                 System.out.println("UserLevel: " + userLevel);
-                System.out.println("RegistrationTime: " + registrationTime);
                 System.out.println("totalAmount: " + totalAmount);
                 System.out.println("phoneNumber: " + phoneNumber);
-                System.out.println("User Mail: " + userMail);
+                System.out.println("User Mail: " + userEMail);
                 System.out.println("------------------------");
             }
         } catch (SQLException e) {
