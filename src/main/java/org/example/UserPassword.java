@@ -57,11 +57,21 @@ public class UserPassword implements MyAction {
                  break; 
                 }
             } else {
-                System.out.println("用户名或邮箱地址不正确，请重新输入。");
+                System.out.println("用户名或邮箱地址不正确，请重新输入:");
+                System.out.println("请重新输入用户名：");
+                username = this.scanner.nextLine();
+                System.out.println("请重新输入注册时使用的邮箱地址：");
                 userMail = this.scanner.nextLine();
+                if (resetPassword(username, userMail)) {
+                    System.out.println("重置密码邮件已发送，请检查您的邮箱。输入q返回登录界面重新登录");
+                    String Input = this.scanner.nextLine();
+                    if (Input.equals("q")) {
+                     break; 
+                    }
             }
         }
     }
+}
     
 
     /**

@@ -33,7 +33,6 @@ public class MyUserManager {
      * @return
      */
     public boolean login(String username, String password) {
-        int count=0;
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
             statement.setString(1, username);
@@ -47,11 +46,7 @@ public class MyUserManager {
                     }
                     else{
                         System.out.println("Incorrect password!");
-                        count++;
-                       if(count==5){
-                         System.out.println("你的账户已被锁定！");
                         }   
-                    }
                 }
                 else{
                     System.out.println("Username does not exist.");
