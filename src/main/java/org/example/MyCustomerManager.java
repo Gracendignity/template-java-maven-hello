@@ -41,10 +41,8 @@ public class MyCustomerManager implements MyAction {
         MyProductManager product = new MyProductManager(scanner);
         list.add(product);
 
-        String userInput ="";
-        while(true){
          
-        System.out.println("列出客户所有信息：List,删除客户信息:delete,查询客户信息:check,返回上一级:yes");
+        System.out.println("列出客户所有信息：List,删除客户信息:delete,查询客户信息:check");
         String Input = this.scanner.nextLine();
         switch(Input){
             case "List": 
@@ -56,13 +54,7 @@ public class MyCustomerManager implements MyAction {
             case "check":
                          checkInfo();
                          break;
-        }
-        System.out.println("是否要返回上一级：yes/no:");
-        userInput = this.scanner.nextLine();
-        if (userInput.equals("yes")) {
-             break;
-            }
-
+        
         }
     }
 

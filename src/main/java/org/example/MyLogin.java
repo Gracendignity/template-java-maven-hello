@@ -42,6 +42,7 @@ public class MyLogin implements MyAction {
 
         System.out.println("欢迎进入登录界面!");
         int count=1;
+        boolean success=false;
         while(true) {
 
            System.out.print("请输入用户名:");
@@ -53,7 +54,7 @@ public class MyLogin implements MyAction {
 
             password=MyPasswordSecurity.PasswordEncryption(password);
 
-            boolean success = this.userManager.login(username, password);
+            success = this.userManager.login(username, password);
             if(success){
 
                 System.out.println("登录成功!");
@@ -75,8 +76,29 @@ public class MyLogin implements MyAction {
                         }
                    }
                    System.out.println("你的个人信息已完善!"); 
-                while(true){
-                System.out.println("请输入你的指令:密码管理:passWord,购物：shopping,q 退出");
+                }
+                else{
+                    count++;
+                    if(count==5){
+                        System.out.println("你的账户已被锁定!使用密码管理功能重置密码：passWord");
+                        userInput = this.scanner.nextLine();
+    
+                        String actionName = null;
+                        for(MyAction twoAction: list) {
+                            actionName = twoAction.getActionName();
+            
+                            if (userInput.equalsIgnoreCase(actionName)) {
+                                twoAction.run(null); 
+                            }
+                       }
+                       System.out.println("重置成功，请重新登录!");
+                       
+                      }
+                    }
+              }
+                while(success){
+                    while(true){
+                    System.out.println("请输入你的指令:密码管理:passWord,购物：shopping,q 退出");
                     userInput = this.scanner.nextLine();
                     if (userInput.equals("passWord")) {
                         break; 
@@ -92,6 +114,7 @@ public class MyLogin implements MyAction {
                 if (userInput.equals("q")) {
                     break; 
                 }
+                while(true){
                     String actionName1 = null;
                     for(MyAction twoAction: list) {
                         actionName1 = twoAction.getActionName();
@@ -100,26 +123,26 @@ public class MyLogin implements MyAction {
                             twoAction.run(null); 
                         }
                    }
-                }
-               else{
-                count++;
-                if(count==5){
-                    System.out.println("你的账户已被锁定!使用密码管理功能重置密码：passWord");
-                    userInput = this.scanner.nextLine();
-
-                    String actionName = null;
+                   System.out.println("q退出,继续使用"+userInput+"功能:G");
+                   String input = this.scanner.nextLine();
+                   if (input.equals("q")) {
+                    break; 
+                   }
+                   else if(input.equals("G")){
                     for(MyAction twoAction: list) {
-                        actionName = twoAction.getActionName();
+                        actionName1 = twoAction.getActionName();
         
-                        if (userInput.equalsIgnoreCase(actionName)) {
+                        if (userInput.equalsIgnoreCase(actionName1)) {
                             twoAction.run(null); 
                         }
                    }
-                   System.out.println("重置成功，请重新登录!");
-                   
-                  }
+                   System.out.println("q退出,继续使用客户管理功能:G");
+                   input = this.scanner.nextLine();
+                   if (input.equals("q")) {
+                    break; 
+                   } 
                 }
-
-         } 
-    }
-}
+              }
+            }
+        } 
+     }

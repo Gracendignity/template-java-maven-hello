@@ -61,11 +61,7 @@ public void Resetpassword(){
             System.out.println("请重新输入注册时使用的邮箱地址：");
             userMail = this.scanner.nextLine();
             if (resetPassword(username, userMail)) {
-                System.out.println("重置密码邮件已发送，请检查您的邮箱。输入q返回登录界面重新登录");
-                String Input = this.scanner.nextLine();
-                if (Input.equals("q")) {
-                 break; 
-                }
+                System.out.println("重置密码邮件已发送，请检查您的邮箱。");
         }
     }
 }
@@ -130,7 +126,7 @@ public static String generateRandomPassword() {
 }
 
 public void changePassword(){
-    String Input = " ";
+
     while(true) {
             
             System.out.print("请输入用户名:");
@@ -150,12 +146,9 @@ public void changePassword(){
            if (rowsUpdated > 0) {
                System.out.println("User information updated successfully!");
                
-               System.out.println("修改密码成功,输入q返回登录界面重新登录");
-               Input = this.scanner.nextLine();
-               if (Input.equals("q")) {
-                break; 
+               System.out.println("修改密码成功,请退出重新登录！");
+               
                }
-            }
                else {
                System.out.println("User not found!");
                }  
