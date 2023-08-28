@@ -29,8 +29,8 @@ public class MyCustomerManager implements MyAction {
         List<MyAction> list = new ArrayList<MyAction>();
 
 
-        UserPassword passWord = new UserPassword(scanner);
-        list.add(passWord);
+        ManagerPassword Password = new ManagerPassword(scanner);
+        list.add(Password);
         
         UserInfo info = new UserInfo(scanner);
         list.add(info);
@@ -44,7 +44,7 @@ public class MyCustomerManager implements MyAction {
         String userInput ="";
         while(true){
          
-        System.out.println("列出客户所有信息：List,删除客户信息:delete,查询客户信息:check");
+        System.out.println("列出客户所有信息：List,删除客户信息:delete,查询客户信息:check,返回上一级:yes");
         String Input = this.scanner.nextLine();
         switch(Input){
             case "List": 
@@ -60,25 +60,9 @@ public class MyCustomerManager implements MyAction {
         System.out.println("是否要返回上一级：yes/no:");
         userInput = this.scanner.nextLine();
         if (userInput.equals("yes")) {
-                    System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
-                    userInput = this.scanner.nextLine();
-
-                    
-                    if (userInput.equals("q")) {
-                        break; 
-                    }
-                    
-                    String actionName = null;
-                    for(MyAction twoAction: list) {
-                        actionName = twoAction.getActionName();
-        
-                        if (userInput.equalsIgnoreCase(actionName)) {
-                            twoAction.run(null); 
-                        }
-                   }
-            
              break;
             }
+
         }
     }
 
@@ -147,20 +131,24 @@ public class MyCustomerManager implements MyAction {
                 int id = Integer.parseInt(this.scanner.nextLine());
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    String userLevel = resultSet.getString("userLevel");
-                    String username = resultSet.getString("username");
-                    double totalAmount = resultSet.getDouble("totalAmount");
-                    String phoneNumber = resultSet.getString("phoneNumber");
-                    String userEMail = resultSet.getString("userEMail");
-                    System.out.println("查询结果如下:");
-                    System.out.println("ID: " + id);
-                    System.out.println("Username: " + username);
-                    System.out.println("UserLevel: " + userLevel);
-                    System.out.println("totalAmount: " + totalAmount);
-                    System.out.println("phoneNumber: " + phoneNumber);
-                    System.out.println("User Mail: " + userEMail);
-                    System.out.println("------------------------");
+                if (!resultSet.next()) {
+                    System.out.println("该客户不存在！");
+                } else {
+                    do {
+                        String userLevel = resultSet.getString("userLevel");
+                        String username = resultSet.getString("username");
+                        double totalAmount = resultSet.getDouble("totalAmount");
+                        String phoneNumber = resultSet.getString("phoneNumber");
+                        String userEMail = resultSet.getString("userEMail");
+                        System.out.println("查询结果如下:");
+                        System.out.println("ID: " + id);
+                        System.out.println("Username: " + username);
+                        System.out.println("UserLevel: " + userLevel);
+                        System.out.println("totalAmount: " + totalAmount);
+                        System.out.println("phoneNumber: " + phoneNumber);
+                        System.out.println("User Mail: " + userEMail);
+                        System.out.println("------------------------");
+                    } while (resultSet.next());
                 }
             }
             else if(input.equals("name")){
@@ -168,15 +156,19 @@ public class MyCustomerManager implements MyAction {
             System.out.print("输入要查询的用户名: ");
             String username = this.scanner.nextLine();
 
-            statement.setString(1, username);
+            statement.setString(2, username);
             
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            if (!resultSet.next()) {
+                System.out.println("该客户不存在！");
+            } else {
+            do {
                 int id = resultSet.getInt("id");
                 String userLevel = resultSet.getString("userLevel");
                 double totalAmount = resultSet.getDouble("totalAmount");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String userEMail = resultSet.getString("userEMail");
+
                 System.out.println("查询结果如下:");
                 System.out.println("ID: " + id);
                 System.out.println("Username: " + username);
@@ -185,8 +177,9 @@ public class MyCustomerManager implements MyAction {
                 System.out.println("phoneNumber: " + phoneNumber);
                 System.out.println("User Mail: " + userEMail);
                 System.out.println("------------------------");
+            }while (resultSet.next());
             }
-            }
+        }
         } catch (SQLException e) {
             System.out.println("Failed to query data from the table: " + e.getMessage());
         }
