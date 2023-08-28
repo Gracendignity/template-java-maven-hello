@@ -122,7 +122,7 @@ public class MyLogin implements MyAction {
                             twoAction.run(null); 
                         }
                    }
-                   System.out.println("q退出,继续使用客户管理功能:G");
+                   System.out.println("q退出,继续使用"+userInput+"功能:G");
                    input = this.scanner.nextLine();
                    if (input.equals("q")) {
                     break; 

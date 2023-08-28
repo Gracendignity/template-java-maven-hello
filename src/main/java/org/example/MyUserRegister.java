@@ -81,7 +81,7 @@ public class MyUserRegister implements MyAction {
 
             boolean success = this.userManager.registerUser(username, password,userMail);
             if(success){
-                System.out.println("注册成功! 请完善个人信息:Info");
+                System.out.println("注册成功! 请完善个人信息:info");
                 userInput = this.scanner.nextLine();
 
                     String actionName = null;

@@ -53,7 +53,7 @@ public class MyUserShopping implements MyAction{
         String productID = this.scanner.nextLine();
 
         System.out.print("请输入要加入购物车的商品数量：");
-        int quantity = this.scanner.nextInt();
+        int quantity = Integer.parseInt(this.scanner.nextLine());
 
         try (Connection connection = DriverManager.getConnection(DB_Shop);
             Connection connection1 = DriverManager.getConnection(DB_Product);
@@ -85,16 +85,16 @@ public class MyUserShopping implements MyAction{
 
    public void deleteProduct(){
     try (Connection connection = DriverManager.getConnection(DB_Shop);
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Shop WHERE productName = ?")) {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Shop WHERE ID = ?")) {
        // 根据商品名称删除商品信息
-       System.out.print("输入要删除的商品名称:");
-       String productName = this.scanner.nextLine();
+       System.out.print("输入要删除的商品编号:");
+       String productID = this.scanner.nextLine();
 
        // 确认是否继续删除
-       System.out.print("Are you sure you want to delete row with productName " + productName + "? (Y/N): ");
+       System.out.print("Are you sure you want to delete row with productID " + productID + "? (Y/N): ");
        String confirmation = this.scanner.nextLine();
        if (confirmation.equalsIgnoreCase("Y")) {
-           statement.setString(1, productName);
+           statement.setString(1, productID);
            int rowsAffected = statement.executeUpdate();
            if (rowsAffected > 0) {
                System.out.println("Row deleted successfully!");
