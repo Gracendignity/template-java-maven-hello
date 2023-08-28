@@ -159,11 +159,9 @@ public class MyProductManager implements MyAction{
                 PreparedStatement statement = connection.prepareStatement("UPDATE Product SET productName = ? WHERE productID = ?")) {
                // 设置要修改的信息
                 statement.setString(1, productName);
-                statement.setString(7,productID); // 根据productID指定要修改的记录
-        
+                statement.setString(2,productID); // 根据productID指定要修改的记录
                 // 执行更新操作
-               statement.executeUpdate();
-            
+               statement.executeUpdate()
                 } catch (SQLException e) {
                  e.printStackTrace();
                }
@@ -174,12 +172,10 @@ public class MyProductManager implements MyAction{
                 try (Connection connection = DriverManager.getConnection(DB_Product);
                 PreparedStatement statement = connection.prepareStatement("UPDATE Product SET manufacturer = ? WHERE productID = ?")) {
                // 设置要修改的信息
-                statement.setString(2, manufacturer);
-                statement.setString(7,productID); // 根据productID指定要修改的记录
-        
+                statement.setString(1, manufacturer);
+                statement.setString(2,productID); // 根据productID指定要修改的记录
                 // 执行更新操作
                statement.executeUpdate();
-            
                 } catch (SQLException e) {
                  e.printStackTrace();
                }
@@ -190,12 +186,10 @@ public class MyProductManager implements MyAction{
                  try (Connection connection = DriverManager.getConnection(DB_Product);
                  PreparedStatement statement = connection.prepareStatement("UPDATE Product SET model = ? WHERE productID = ?")) {
                 // 设置要修改的信息
-                 statement.setString(3, model);
-                 statement.setString(7,productID); // 根据productID指定要修改的记录
-         
+                 statement.setString(1, model);
+                 statement.setString(2,productID); // 根据productID指定要修改的记录
                  // 执行更新操作
                 statement.executeUpdate();
-             
                  } catch (SQLException e) {
                   e.printStackTrace();
                 }
@@ -207,13 +201,10 @@ public class MyProductManager implements MyAction{
                   try (Connection connection = DriverManager.getConnection(DB_Product);
                   PreparedStatement statement = connection.prepareStatement("UPDATE Product SET purchasePrice = ? WHERE productID = ?")) {
                  // 设置要修改的信息
-                
-                  statement.setDouble(4, purchasePrice); 
-                  statement.setString(7,productID); // 根据productID指定要修改的记录
-          
+                  statement.setDouble(1, purchasePrice); 
+                  statement.setString(2,productID); // 根据productID指定要修改的记录
                   // 执行更新操作
                  statement.executeUpdate();
-              
                   } catch (SQLException e) {
                    e.printStackTrace();
                  }
@@ -225,12 +216,10 @@ public class MyProductManager implements MyAction{
                   PreparedStatement statement = connection.prepareStatement("UPDATE Product SET retailPrice = ? WHERE productID = ?")) {
                  // 设置要修改的信息
                    
-                  statement.setDouble(5, retailPrice); 
-                  statement.setString(7,productID); // 根据productID指定要修改的记录
-          
+                  statement.setDouble(1, retailPrice); 
+                  statement.setString(2,productID); // 根据productID指定要修改的记录
                   // 执行更新操作
                  statement.executeUpdate();
-              
                   } catch (SQLException e) {
                    e.printStackTrace();
                  }
@@ -241,12 +230,10 @@ public class MyProductManager implements MyAction{
                   try (Connection connection = DriverManager.getConnection(DB_Product);
                   PreparedStatement statement = connection.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?")) {
                  // 设置要修改的信息
-                  statement.setInt(6, quantity);
-                  statement.setString(7,productID); // 根据productID指定要修改的记录
-          
+                  statement.setInt(1, quantity);
+                  statement.setString(2,productID); // 根据productID指定要修改的记录
                   // 执行更新操作
                  statement.executeUpdate();
-              
                   } catch (SQLException e) {
                    e.printStackTrace();
                  }
