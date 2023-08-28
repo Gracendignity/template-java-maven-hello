@@ -48,7 +48,7 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Product);
              Statement statement = connection.createStatement()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (productID TEXT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (id INTEGER PRIMARY KEY AUTOINCREMENT,productID TEXT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
             statement.executeUpdate(createTableQuery);
             System.out.println("Database initialized successfully!");
         } catch (SQLException e) {
@@ -69,7 +69,7 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Shop);
         Statement statement = connection.createStatement()) {
-       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (ID TEXT, quantity INTEGER)";
+       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id INTEGER PRIMARY KEY AUTOINCREMENT,ID TEXT, quantity INTEGER)";
        statement.executeUpdate(createTableQuery);
        System.out.println("Database initialized successfully!");
    } catch (SQLException e) {
