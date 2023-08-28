@@ -58,4 +58,30 @@ public class MyUserManager {
 
         return false;
     }
+    public boolean managerLogin(String username, String password) {
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
+            statement.setString(1, "admin");
+            ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    String storedPassword = resultSet.getString("ynuinfo#777");
+                    if (password.equals(storedPassword)){
+                        System.out.println("Login successful!");
+                      return true;
+                    }
+                    else{
+                        System.out.println("Incorrect password!");
+                        }   
+                }
+                else{
+                    System.out.println("Username does not exist.");
+                }
+        } 
+         catch (SQLException e) {
+            System.out.println("Failed to login: " + e.getMessage());
+        }
+
+        return false;
+    }
 }

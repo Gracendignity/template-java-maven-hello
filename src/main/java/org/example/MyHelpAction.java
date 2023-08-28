@@ -24,20 +24,14 @@ public class MyHelpAction implements MyAction {
         List<MyAction> list = new ArrayList<MyAction>();
 
         MyUserManager userManager=new MyUserManager();
-        MyLogin login = new MyLogin(scanner,userManager);
-        list.add(login);
-        
-        MyUserRegister register = new MyUserRegister(scanner,userManager);
-        list.add(register);
-
-        UserPassword passWord = new UserPassword(scanner);
-        list.add(passWord);
+        ManagerLogin Login = new ManagerLogin(scanner,userManager);
+        list.add(Login);
         
         String userInput = "";
 
         while(true) {
             System.out.println("你当前在 manager的二级子目录下 >");
-            System.out.println("登录账户:login,q 退出");
+            System.out.println("登录账户:Login,q 退出");
             userInput = this.scanner.nextLine();
 
             if (userInput.equals("q")) {
