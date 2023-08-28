@@ -76,6 +76,7 @@ public class MyCustomerManager implements MyAction {
                             twoAction.run(null); 
                         }
                    }
+            
              break;
             }
         }
@@ -139,21 +140,44 @@ public class MyCustomerManager implements MyAction {
         try (Connection connection = DriverManager.getConnection(DB_Manager);
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager WHERE id = ? OR username = ?")) {
             // 从用户输入获取查询条件
-            System.out.print("Enter the ID: ");
-            int id = Integer.parseInt(this.scanner.nextLine());
-
-            System.out.print("Enter the username: ");
+            System.out.println("请选择查询客户信息的方式:通过id查询:ID,通过用户名查询:name:");
+            String input = this.scanner.nextLine();
+            if(input.equals("ID")){
+                System.out.print("输入要查询的id: ");
+                int id = Integer.parseInt(this.scanner.nextLine());
+                statement.setInt(1, id);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String userLevel = resultSet.getString("userLevel");
+                    String username = resultSet.getString("username");
+                    double totalAmount = resultSet.getDouble("totalAmount");
+                    String phoneNumber = resultSet.getString("phoneNumber");
+                    String userEMail = resultSet.getString("userEMail");
+                    System.out.println("查询结果如下:");
+                    System.out.println("ID: " + id);
+                    System.out.println("Username: " + username);
+                    System.out.println("UserLevel: " + userLevel);
+                    System.out.println("totalAmount: " + totalAmount);
+                    System.out.println("phoneNumber: " + phoneNumber);
+                    System.out.println("User Mail: " + userEMail);
+                    System.out.println("------------------------");
+                }
+            }
+            else if(input.equals("name")){
+    
+            System.out.print("输入要查询的用户名: ");
             String username = this.scanner.nextLine();
 
-            statement.setInt(1, id);
-            statement.setString(2, username);
+            statement.setString(1, username);
             
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String userLevel = resultSet.getString("userLevel");
                 double totalAmount = resultSet.getDouble("totalAmount");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String userEMail = resultSet.getString("userEMail");
+                System.out.println("查询结果如下:");
                 System.out.println("ID: " + id);
                 System.out.println("Username: " + username);
                 System.out.println("UserLevel: " + userLevel);
@@ -161,6 +185,7 @@ public class MyCustomerManager implements MyAction {
                 System.out.println("phoneNumber: " + phoneNumber);
                 System.out.println("User Mail: " + userEMail);
                 System.out.println("------------------------");
+            }
             }
         } catch (SQLException e) {
             System.out.println("Failed to query data from the table: " + e.getMessage());

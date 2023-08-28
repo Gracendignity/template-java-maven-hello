@@ -31,7 +31,7 @@ public class DatabaseInitializer {
         String passWord = "ynuinfo#777";
         passWord = MyPasswordSecurity.PasswordEncryption(passWord);
         try (Connection connection = DriverManager.getConnection(DB_managerInfo);
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO managerInfo (username, password, userMail) VALUES (?, ?, ?)")) {
             statement.setString(1, "admin");
             statement.setString(2, passWord);
             statement.executeUpdate();

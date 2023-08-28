@@ -27,8 +27,8 @@ public class ManagerLogin implements MyAction{
         List<MyAction> list = new ArrayList<MyAction>();
 
 
-        UserPassword passWord = new UserPassword(scanner);
-        list.add(passWord);
+        ManagerPassword Password = new ManagerPassword(scanner);
+        list.add(Password);
     
 
         MyCustomerManager customer = new MyCustomerManager(scanner);
@@ -56,7 +56,7 @@ public class ManagerLogin implements MyAction{
                 System.out.println("登录成功!");
 
                 while(true){
-                    System.out.println("请输入你的指令:密码管理:passWord,顾客管理:customer,商品管理:product,q 退出");
+                    System.out.println("请输入你的指令:密码管理:Password,顾客管理:customer,商品管理:product,q 退出");
                     userInput = this.scanner.nextLine();
                     if (userInput.equals("passWord")) {
                         break; 
