@@ -58,24 +58,7 @@ public class MyLogin implements MyAction {
             if(success){
 
                 System.out.println("登录成功!");
-
-                System.out.println("请完善个人信息：info");
-                userInput = this.scanner.nextLine();
-
-                    
-                    if (userInput.equals("q")) {
-                        break; 
-                    }
-                    
-                    String actionName = null;
-                    for(MyAction twoAction: list) {
-                        actionName = twoAction.getActionName();
-        
-                        if (userInput.equalsIgnoreCase(actionName)) {
-                            twoAction.run(null); 
-                        }
-                   }
-                   System.out.println("你的个人信息已完善!"); 
+                    break;
                 }
                 else{
                     count++;

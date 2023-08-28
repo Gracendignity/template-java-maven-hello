@@ -40,7 +40,7 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Manager);
              Statement statement = connection.createStatement()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS manager (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT, userLevel TEXT, totalAmount INTEGER, phoneNumber TEXT, userEmail TEXT)";
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS manager (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT, userLevel TEXT, totalAmount double, phoneNumber TEXT, userEmail TEXT)";
             statement.executeUpdate(createTableQuery);
             System.out.println("Database initialized successfully!");
         } catch (SQLException e) {
@@ -48,28 +48,28 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Product);
              Statement statement = connection.createStatement()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (productID TEXT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (id INTEGER PRIMARY KEY AUTOINCREMENT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
             statement.executeUpdate(createTableQuery);
             System.out.println("Database initialized successfully!");
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
         try (Connection connection = DriverManager.getConnection(DB_Product);
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")){
-                    statement.setString(1, "GB123");
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (id, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+                    statement.setInt(1, 1);
                     statement.setString(2, "快乐水");
                     statement.setString(3, "云南昆明");
                     statement.setString(4, "饮料");
-                    statement.setDouble(5, 2.0);//2表示价格
+                    statement.setDouble(5, 2.0);//2表示价格为：2元/瓶
                     statement.setDouble(6, 3.0);
-                    statement.setString(7, "10箱");
+                    statement.setInt(7, 50);
                     statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
         try (Connection connection = DriverManager.getConnection(DB_Shop);
         Statement statement = connection.createStatement()) {
-       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id INTEGER PRIMARY KEY AUTOINCREMENT, productID TEXT, quantity INTEGER)";
+       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id TEXT, quantity INTEGER)";
        statement.executeUpdate(createTableQuery);
        System.out.println("Database initialized successfully!");
    } catch (SQLException e) {

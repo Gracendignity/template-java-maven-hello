@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +33,10 @@ public class MyUserRegister implements MyAction {
     @Override
     public void run(String[] args) {
         System.out.println("欢迎进入注册界面!");
+        List<MyAction> list = new ArrayList<MyAction>();
 
+        UserInfo info = new UserInfo(scanner);
+        list.add(info);
         while(true) {
             System.out.print("请输入用户名:");
             String username = this.scanner.nextLine();
@@ -58,7 +63,7 @@ public class MyUserRegister implements MyAction {
                 e.printStackTrace();
             }
 
-            System.out.println("请输入密码:");
+            System.out.print("请输入密码:");
             String password = "";
             password = this.scanner.nextLine();
             
@@ -76,13 +81,21 @@ public class MyUserRegister implements MyAction {
 
             boolean success = this.userManager.registerUser(username, password,userMail);
             if(success){
-                System.out.println("注册成功! q退出注册界面");
+                System.out.println("注册成功! 请完善个人信息:Info");
+                System.out.println("请完善个人信息：info");
                 userInput = this.scanner.nextLine();
 
-                if (userInput.equals("q")) {
+                    String actionName = null;
+                    for(MyAction twoAction: list) {
+                        actionName = twoAction.getActionName();
+        
+                        if (userInput.equalsIgnoreCase(actionName)) {
+                            twoAction.run(null); 
+                        }
+                   }
+                   System.out.println("你的个人信息已完善!"); 
                     break; 
                 }
-            }
         }
     } 
      public boolean validatePassword(String password) {
