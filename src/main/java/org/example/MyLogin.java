@@ -40,6 +40,9 @@ public class MyLogin implements MyAction {
         MyProductManager product = new MyProductManager(scanner);
         list.add(product);
 
+        MyUserShopping shopping = new MyUserShopping(scanner);
+        list.add(shopping);
+
         System.out.println("欢迎进入登录界面!");
         int count=1;
         boolean success=false;
