@@ -161,7 +161,7 @@ public class MyProductManager implements MyAction{
                 statement.setString(1, productName);
                 statement.setString(2,productID); // 根据productID指定要修改的记录
                 // 执行更新操作
-               statement.executeUpdate()
+               statement.executeUpdate();
                 } catch (SQLException e) {
                  e.printStackTrace();
                }
