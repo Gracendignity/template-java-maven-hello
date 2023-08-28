@@ -166,81 +166,84 @@ public class MyUserShopping implements MyAction{
    }
 
    public void  pay(){
-    System.out.print("请输入商品编号：");
-    String productID = this.scanner.nextLine();
-
-    System.out.print("请输入用户名：");
-    String username = this.scanner.nextLine();
-
-    try (Connection connection = DriverManager.getConnection(DB_Shop);
-       Connection connection1 = DriverManager.getConnection(DB_Manager);
-       Connection connection2 = DriverManager.getConnection(DB_Product);
-     PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
-     PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
-     PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
-
-    int currentQuantity=0;
-    // 查询当前商品的数量
-    selectStatement.setString(1, productID);
-    ResultSet selectResultSet = selectStatement.executeQuery();
-    if (selectResultSet.next()) {
-        currentQuantity = selectResultSet.getInt("quantity");
-    }
-    else {
-        System.out.println("商品不存在");
-        return;
-    }
-    // 查询当前商品的售价
-    double price=0;
-    selectStatement1.setString(1, productID);
-    ResultSet selectResultSet1 = selectStatement1.executeQuery();
-    if (selectResultSet1.next()) {
-        price = selectResultSet1.getDouble("retailPrice");
-    }
-    else {
-        System.out.println("商品不存在");
-        return;
-    }
     
-    double totalAmount = currentQuantity * price;
-    updateStatement.setDouble(1, totalAmount);
-    updateStatement.setString(2, username);
-    updateStatement.executeUpdate();
+    double totalAmount = 0.0;
+      System.out.print("请输入用户名：");
+      String username = this.scanner.nextLine();
 
-    System.out.println("购物总金额：" + totalAmount);
+      System.out.print("请输入商品编号：");
+      String productID = this.scanner.nextLine();
+      while (!productID.equals("q")) {
+        try (Connection connection = DriverManager.getConnection(DB_Shop);
+         Connection connection1 = DriverManager.getConnection(DB_Manager);
+          Connection connection2 = DriverManager.getConnection(DB_Product);
+           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
+            PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
+            PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
 
-    // 根据购物总金额区分客户等级并更新到manager数据表
-    String userLevel = "";
-    if (totalAmount >= 1000) {
-        userLevel = "金牌客户";
-    } else if (totalAmount >= 500) {
-        userLevel = "银牌客户";
-    } else {
-        userLevel = "铜牌客户";
-    }
-    updateStatement.setString(3, userLevel);
-    updateStatement.setString(4, username);
-    updateStatement.executeUpdate();
+         int currentQuantity=0;
+         // 查询当前商品的数量
+        selectStatement.setString(1, productID);
+        ResultSet selectResultSet = selectStatement.executeQuery();
+         if (selectResultSet.next()) {
+         currentQuantity = selectResultSet.getInt("quantity");
+        }
+        else {
+          System.out.println("商品不存在");
+          continue; // 继续下一轮循环
+         }
+          // 查询当前商品的售价
+          double price=0;
+          selectStatement1.setString(1, productID);
+          ResultSet selectResultSet1 = selectStatement1.executeQuery();
+         if (selectResultSet1.next()) {
+         price = selectResultSet1.getDouble("retailPrice");
+        }
+       else {
+        System.out.println("商品不存在");
+        continue; // 继续下一轮循环
+       }
 
-    // 使用支付宝、微信和银行卡来模拟付账
-    System.out.println("请根据购物总金额付账！");
-    System.out.println("支付渠道有：支付宝：Alipay、微信:WeChat、银行卡:Card");
-    String input=this.scanner.nextLine();
+         totalAmount = currentQuantity * price;
 
-    if(input.equals("WeChat")){
-        System.out.println("微信支付成功！");
-    }
-    else if(input.equals("Alipay")){
-        System.out.println("支付宝支付成功！");
-    }
-    else if(input.equals("Card")){
-        System.out.println("银行卡支付成功！");
-    }
-    
+        System.out.println("购物总金额：" + totalAmount);
 
-    } catch (SQLException e) {
-    e.printStackTrace();
-    }
+        // 使用支付宝、微信和银行卡来模拟付账
+       System.out.println("请根据购物总金额付账！");
+        System.out.println("支付渠道有：支付宝：Alipay、微信:WeChat、银行卡:Card");
+        String input=this.scanner.nextLine();
+
+        if(input.equals("WeChat")){
+               System.out.println("微信支付成功！");
+        }
+            else if(input.equals("Alipay")){
+             System.out.println("支付宝支付成功！");
+          }
+          else if(input.equals("Card")){
+               System.out.println("银行卡支付成功！");
+             }
+
+             totalAmount += currentQuantity * price;
+             // 根据购物总金额区分客户等级并更新到manager数据表
+          String userLevel = "";
+          if (totalAmount >= 1000) {
+           userLevel = "金牌客户";
+         } else if (totalAmount >= 500) {
+          userLevel = "银牌客户";
+          } else {
+            userLevel = "铜牌客户";
+          }
+
+         updateStatement.setDouble(1, totalAmount);
+         updateStatement.setString(2, userLevel);
+         updateStatement.setString(3, username);
+         updateStatement.executeUpdate();
+     } catch (SQLException e) {
+            e.printStackTrace();
+            }
+            System.out.print("请输入商品编号（输入q退出）：");
+            productID = this.scanner.nextLine();
+        }
  }
   
    public void shoppingHistory(){

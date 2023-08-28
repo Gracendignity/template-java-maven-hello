@@ -129,7 +129,6 @@ public class UserPassword implements MyAction {
     }
 
     public void changePassword(){
-        String Input = " ";
         while(true) {
                 
                 System.out.print("请输入用户名:");
