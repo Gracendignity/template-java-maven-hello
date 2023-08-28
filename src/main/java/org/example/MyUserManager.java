@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class MyUserManager {
     private static final String DB_URL = "jdbc:sqlite:users.db";
+    private static final String DB_managerInfo = "jdbc:sqlite:managerInfo.db";
 
     public boolean registerUser(String username, String password,String userMail) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -59,13 +60,13 @@ public class MyUserManager {
         return false;
     }
     public boolean managerLogin(String username, String password) {
-        try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE username = ?")) {
-            statement.setString(1, "admin");
+        try (Connection connection = DriverManager.getConnection(DB_managerInfo);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM managerInfo WHERE username = ?")) {
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    String storedPassword = resultSet.getString("ynuinfo#777");
+                    String storedPassword = resultSet.getString("password");
                     if (password.equals(storedPassword)){
                         System.out.println("Login successful!");
                       return true;

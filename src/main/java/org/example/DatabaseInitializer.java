@@ -9,6 +9,7 @@ public class DatabaseInitializer {
     private static final String DB_URL = "jdbc:sqlite:users.db";
     private static final String DB_Manager = "jdbc:sqlite:manager.db";
     private static final String DB_Product = "jdbc:sqlite:Product.db";
+    private static final String DB_managerInfo = "jdbc:sqlite:managerInfo.db";
     private static final String DB_Shop = "jdbc:sqlite:Shop.db";
     public void initializeDatabase() {
         try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -19,9 +20,17 @@ public class DatabaseInitializer {
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
+        try (Connection connection = DriverManager.getConnection(DB_managerInfo);
+             Statement statement = connection.createStatement()) {
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS managerInfo(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT,userMail TEXT)";
+            statement.executeUpdate(createTableQuery);
+            System.out.println("Database initialized successfully!");
+        } catch (SQLException e) {
+            System.out.println("Failed to initialize database: " + e.getMessage());
+        }
         String passWord = "ynuinfo#777";
         passWord = MyPasswordSecurity.PasswordEncryption(passWord);
-        try (Connection connection = DriverManager.getConnection(DB_URL);
+        try (Connection connection = DriverManager.getConnection(DB_managerInfo);
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, password, userMail) VALUES (?, ?, ?)")) {
             statement.setString(1, "admin");
             statement.setString(2, passWord);
