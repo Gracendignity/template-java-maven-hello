@@ -48,15 +48,15 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Product);
              Statement statement = connection.createStatement()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (id INTEGER PRIMARY KEY AUTOINCREMENT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS Product (productID TEXT, productName TEXT, manufacturer TEXT, model TEXT, purchasePrice REAL, retailPrice DECIMAL, quantity INTEGER)";
             statement.executeUpdate(createTableQuery);
             System.out.println("Database initialized successfully!");
         } catch (SQLException e) {
             System.out.println("Failed to initialize database: " + e.getMessage());
         }
         try (Connection connection = DriverManager.getConnection(DB_Product);
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (id, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")){
-                    statement.setInt(1, 1);
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+                    statement.setString(1, "A1");
                     statement.setString(2, "快乐水");
                     statement.setString(3, "云南昆明");
                     statement.setString(4, "饮料");
@@ -69,7 +69,7 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Shop);
         Statement statement = connection.createStatement()) {
-       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id TEXT, quantity INTEGER)";
+       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (ID TEXT, quantity INTEGER)";
        statement.executeUpdate(createTableQuery);
        System.out.println("Database initialized successfully!");
    } catch (SQLException e) {

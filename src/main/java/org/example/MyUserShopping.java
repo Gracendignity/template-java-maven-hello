@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class MyUserShopping implements MyAction{
     private static final String DB_Shop = "jdbc:sqlite:Shop.db";
+    private static final String DB_Manager = "jdbc:sqlite:manager.db";
+    private static final String DB_Product = "jdbc:sqlite:Product.db";
     private static final String ACTION_NAME = "shopping";
     private Scanner scanner;
 
@@ -48,29 +50,30 @@ public class MyUserShopping implements MyAction{
 
     public void addProduct(){
         System.out.print("请输入要加入购物车的商品编号：");
-        int id = this.scanner.nextInt();
+        String productID = this.scanner.nextLine();
 
         System.out.print("请输入要加入购物车的商品数量：");
         int quantity = this.scanner.nextInt();
 
         try (Connection connection = DriverManager.getConnection(DB_Shop);
-        PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Product WHERE id = ?");
-         PreparedStatement updateStatement = connection.prepareStatement("UPDATE Product SET quantity = ? WHERE id = ?");
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (id, quantity) VALUES (?, ?)")) {
+            Connection connection1 = DriverManager.getConnection(DB_Product);
+        PreparedStatement selectStatement = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
+         PreparedStatement updateStatement = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (ID, quantity) VALUES (?, ?)")) {
             int count=0;
             // 查询当前商品的数量
-            selectStatement.setInt(1, id);
+            selectStatement.setString(1, productID);
             ResultSet selectResultSet = selectStatement.executeQuery();
             if (selectResultSet.next()) {
                  count = selectResultSet.getInt("quantity");
             }
             count = count-quantity;
             updateStatement.setInt(1, count);
-            updateStatement.setInt(2, id);
+            updateStatement.setString(2, productID);
             updateStatement.executeUpdate();
        // 设置要添加的信息
-        statement.setInt(1, id); // 设置ID
-        statement.setInt(7, quantity);
+        statement.setString(1, productID); // 设置ID
+        statement.setInt(2, quantity);
       // 执行插入操作
       int rowsAffected = statement.executeUpdate();
       System.out.println("已添加 " + rowsAffected + " 条信息");
@@ -108,21 +111,22 @@ public class MyUserShopping implements MyAction{
 
    public void changeProduct(){
     System.out.print("请输入需修改的商品编号：");
-    int id = this.scanner.nextInt();
+    String productID = this.scanner.nextLine();
 
     System.out.print("请输入商品数量的变化值：");
     int quantityChange = this.scanner.nextInt();
 
     try (Connection connection = DriverManager.getConnection(DB_Shop);
-         PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE id = ?");
-         PreparedStatement selectStatement1 = connection.prepareStatement("SELECT quantity FROM Product WHERE id = ?");
-         PreparedStatement updateStatement = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE id = ?");
-         PreparedStatement updateStatement1 = connection.prepareStatement("UPDATE Product SET quantity = ? WHERE id = ?");
-         PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM Shop WHERE id = ?")) {
+        Connection connection1 = DriverManager.getConnection(DB_Product);
+         PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
+         PreparedStatement selectStatement1 = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
+         PreparedStatement updateStatement = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE ID = ?");
+         PreparedStatement updateStatement1 = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
+         PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM Shop WHERE ID = ?")) {
             int newQuantity=0;
             int count=0;
         // 查询当前商品的数量
-        selectStatement.setInt(1, id);
+        selectStatement.setString(1, productID);
         ResultSet selectResultSet = selectStatement.executeQuery();
         if (selectResultSet.next()) {
             int currentQuantity = selectResultSet.getInt("quantity");
@@ -130,11 +134,11 @@ public class MyUserShopping implements MyAction{
             // 计算变化后的数量
             newQuantity = currentQuantity - quantityChange;
             updateStatement.setInt(1, newQuantity);
-            updateStatement.setInt(2, id);
+            updateStatement.setString(2, productID);
             updateStatement.executeUpdate();
 
             if (newQuantity <= 0) {
-                deleteStatement.setInt(1, id);
+                deleteStatement.setString(1, productID);
                 deleteStatement.executeUpdate();
                 System.out.println("商品已从数据表中清除");
             } else {
@@ -143,7 +147,7 @@ public class MyUserShopping implements MyAction{
         } else {
             System.out.println("商品不存在");
         }
-        selectStatement1.setInt(1, id);
+        selectStatement1.setString(1, productID);
         ResultSet selectResultSet1 = selectStatement1.executeQuery();
         if (selectResultSet1.next()) {
             count = selectResultSet1.getInt("quantity");
@@ -153,7 +157,7 @@ public class MyUserShopping implements MyAction{
         }
         count = count-newQuantity;
         updateStatement1.setDouble(1, count);
-        updateStatement1.setInt(2, id);
+        updateStatement1.setString(2, productID);
         updateStatement.executeUpdate();
 
     } catch (SQLException e) {
@@ -163,19 +167,21 @@ public class MyUserShopping implements MyAction{
 
    public void  pay(){
     System.out.print("请输入商品编号：");
-    int id = this.scanner.nextInt();
+    String productID = this.scanner.nextLine();
 
     System.out.print("请输入用户名：");
     String username = this.scanner.nextLine();
 
     try (Connection connection = DriverManager.getConnection(DB_Shop);
-     PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE id = ?");
-     PreparedStatement selectStatement1 = connection.prepareStatement("SELECT retailPrice FROM Product WHERE id = ?");
-     PreparedStatement updateStatement = connection.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
+       Connection connection1 = DriverManager.getConnection(DB_Manager);
+       Connection connection2 = DriverManager.getConnection(DB_Product);
+     PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
+     PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
+     PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
 
     int currentQuantity=0;
     // 查询当前商品的数量
-    selectStatement.setInt(1, id);
+    selectStatement.setString(1, productID);
     ResultSet selectResultSet = selectStatement.executeQuery();
     if (selectResultSet.next()) {
         currentQuantity = selectResultSet.getInt("quantity");
@@ -186,7 +192,7 @@ public class MyUserShopping implements MyAction{
     }
     // 查询当前商品的售价
     double price=0;
-    selectStatement1.setInt(1, id);
+    selectStatement1.setString(1, productID);
     ResultSet selectResultSet1 = selectStatement1.executeQuery();
     if (selectResultSet1.next()) {
         price = selectResultSet1.getDouble("retailPrice");

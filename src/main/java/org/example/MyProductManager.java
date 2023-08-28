@@ -50,7 +50,7 @@ public class MyProductManager implements MyAction{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Product")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        int id = resultSet.getInt("id");
+        String productID = resultSet.getString("productID");
         String productName = resultSet.getString("productName");
         String manufacturer = resultSet.getString("manufacturer");
     
@@ -58,7 +58,7 @@ public class MyProductManager implements MyAction{
         Double purchasePricer = resultSet.getDouble("purchasePrice");
         Double retailPrice = resultSet.getDouble("retailPrice");
         int quantity = resultSet.getInt("quantity");
-        System.out.println("ID: " + id);
+        System.out.println("ID: " + productID);
         System.out.println("productName: " + productName);
         System.out.println("manufacturer: " + manufacturer);
        
@@ -75,7 +75,7 @@ public class MyProductManager implements MyAction{
 
     public void addProduct(){
         System.out.print("请输入商品的编号：");
-        String id = this.scanner.nextLine();
+        String productID = this.scanner.nextLine();
 
         System.out.print("请输入商品的名称：");
         String productName = this.scanner.nextLine();
@@ -96,9 +96,9 @@ public class MyProductManager implements MyAction{
         int quantity = this.scanner.nextInt();
 
         try (Connection connection = DriverManager.getConnection(DB_Product);
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (id, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
        // 设置要添加的信息
-        statement.setString(1, id); // 设置ID
+        statement.setString(1, productID); // 设置ID
         statement.setString(2, productName); // 设置名称
         statement.setString(3, manufacturer);
         statement.setString(4,  model);
@@ -147,7 +147,7 @@ public class MyProductManager implements MyAction{
         double retailPrice=0;
         int quantity=0;
         System.out.print("请输入需修改的商品编号：");
-        int id = this.scanner.nextInt();
+        String productID = this.scanner.nextLine();
         System.out.print("请输入需修改的商品信息：商品名称：productName，生产厂家：manufacturer，商品类型：model，商品进价：purchasePrice，商品售价：retailPrice，商品进货量：quantity：");
         String  info = this.scanner.nextLine();
         switch(info){
@@ -178,7 +178,7 @@ public class MyProductManager implements MyAction{
         }
 
         try (Connection connection = DriverManager.getConnection(DB_Product);
-        PreparedStatement statement = connection.prepareStatement("UPDATE Product SET productName = ?, SET manufacturer = ?, SET model = ?, SET purchasePrice = ?, SET retailPrice = ?, SET quantity = ? WHERE id = ?")) {
+        PreparedStatement statement = connection.prepareStatement("UPDATE Product SET productName = ?, SET manufacturer = ?, SET model = ?, SET purchasePrice = ?, SET retailPrice = ?, SET quantity = ? WHERE productID = ?")) {
        // 设置要修改的信息
         statement.setString(1, productName);
         statement.setString(2, manufacturer);
@@ -186,7 +186,7 @@ public class MyProductManager implements MyAction{
         statement.setDouble(4, purchasePrice); 
         statement.setDouble(5, retailPrice); 
         statement.setInt(6, quantity);
-        statement.setInt(7,id); // 根据productID指定要修改的记录
+        statement.setString(7,productID); // 根据productID指定要修改的记录
 
         // 执行更新操作
        int rowsAffected = statement.executeUpdate();
@@ -211,7 +211,7 @@ public class MyProductManager implements MyAction{
                     System.out.println("该商品不存在！");
                 } else {
                     do {
-                        int id = resultSet.getInt("id");
+                        int productID = resultSet.getInt("productID");
                         String manufacturer = resultSet.getString("manufacturer");
                         String model = resultSet.getString("model");
                         double purchasePrice = resultSet.getDouble("purchasePrice");
@@ -219,7 +219,7 @@ public class MyProductManager implements MyAction{
                         int quantity = resultSet.getInt("quantity");
 
                         System.out.println("查询结果如下:");
-                        System.out.println("ID: " + id);
+                        System.out.println("ID: " + productID);
                         System.out.println("商品名称: " + productName);
                         System.out.println("制造商: " + manufacturer);
                         System.out.println("型号: " + model);
@@ -242,7 +242,7 @@ public class MyProductManager implements MyAction{
                 System.out.println("该商品不存在！");
             } else {
             do {
-                int id = resultSet.getInt("id");
+                int productID = resultSet.getInt("productID");
                 String productName = resultSet.getString("productName");
                 String model = resultSet.getString("model");
                 double purchasePrice = resultSet.getDouble("purchasePrice");
@@ -250,7 +250,7 @@ public class MyProductManager implements MyAction{
                 int quantity = resultSet.getInt("quantity");
 
                 System.out.println("查询结果如下:");
-                System.out.println("ID: " + id);
+                System.out.println("ID: " + productID);
                 System.out.println("商品名称: " + productName);
                 System.out.println("制造商: " + manufacturer);
                 System.out.println("型号: " + model);
@@ -273,7 +273,7 @@ public class MyProductManager implements MyAction{
                 System.out.println("该商品不存在！");
             } else {
             do {
-                int id = resultSet.getInt("id");
+                int productID = resultSet.getInt("productID");
                 String productName = resultSet.getString("productName");
                 String model = resultSet.getString("model");
                 double purchasePrice = resultSet.getDouble("purchasePrice");
@@ -281,7 +281,7 @@ public class MyProductManager implements MyAction{
                 int quantity = resultSet.getInt("quantity");
 
                 System.out.println("查询结果如下:");
-                System.out.println("ID: " + id);
+                System.out.println("ID: " + productID);
                 System.out.println("商品名称: " + productName);
                 System.out.println("制造商: " + manufacturer);
                 System.out.println("型号: " + model);
