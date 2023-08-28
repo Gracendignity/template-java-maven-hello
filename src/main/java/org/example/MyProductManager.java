@@ -34,6 +34,7 @@ public class MyProductManager implements MyAction{
                          break;
             case "add":
                         addProduct();
+                        break;
             case "delete":
                           deleteInfo();
                           break;
@@ -165,20 +166,20 @@ public class MyProductManager implements MyAction{
                   break;
             case "purchasePrice":
                   System.out.print("请输入新的商品进价：");
-                  purchasePrice = this.scanner.nextDouble();
+                  purchasePrice = Double.parseDouble(this.scanner.nextLine());
                   break;
             case "retailPrice":
                   System.out.print("请输入新的商品售价：");
-                  retailPrice = this.scanner.nextDouble();
+                  retailPrice = Double.parseDouble(this.scanner.nextLine());
                   break;
             case "quantity":
                   System.out.print("请输入新的商品进货量：");
-                  quantity = this.scanner.nextInt();
+                  quantity = Integer.parseInt(this.scanner.nextLine());
                   break;
         }
 
         try (Connection connection = DriverManager.getConnection(DB_Product);
-        PreparedStatement statement = connection.prepareStatement("UPDATE Product SET productName = ?, SET manufacturer = ?, SET model = ?, SET purchasePrice = ?, SET retailPrice = ?, SET quantity = ? WHERE productID = ?")) {
+        PreparedStatement statement = connection.prepareStatement("UPDATE Product SET productName = ?, manufacturer = ?, model = ?, purchasePrice = ?, retailPrice = ?, quantity = ? WHERE productID = ?")) {
        // 设置要修改的信息
         statement.setString(1, productName);
         statement.setString(2, manufacturer);

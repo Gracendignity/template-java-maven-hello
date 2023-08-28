@@ -114,7 +114,7 @@ public class MyUserShopping implements MyAction{
     String productID = this.scanner.nextLine();
 
     System.out.print("请输入商品数量的变化值：");
-    int quantityChange = this.scanner.nextInt();
+    int quantityChange = Integer.parseInt(this.scanner.nextLine());
 
     try (Connection connection = DriverManager.getConnection(DB_Shop);
         Connection connection1 = DriverManager.getConnection(DB_Product);
@@ -218,8 +218,8 @@ public class MyUserShopping implements MyAction{
     } else {
         userLevel = "铜牌客户";
     }
-    updateStatement.setString(1, userLevel);
-    updateStatement.setString(2, username);
+    updateStatement.setString(3, userLevel);
+    updateStatement.setString(4, username);
     updateStatement.executeUpdate();
 
     // 使用支付宝、微信和银行卡来模拟付账
@@ -248,12 +248,15 @@ public class MyUserShopping implements MyAction{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Shop")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        int id = resultSet.getInt("id");
+        String id = resultSet.getNString("ID");
         int quantity = resultSet.getInt("quantity");
         System.out.println("购买清单如下:");
         System.out.println("ID: " + id);
         System.out.println("quantity: " + quantity);
         System.out.println("------------------------");
+       }
+       if(!resultSet.next()){
+        System.out.println("无购买历史");
        }
       } catch (SQLException e) {
     System.out.println("Failed to retrieve data from the table: " + e.getMessage());
