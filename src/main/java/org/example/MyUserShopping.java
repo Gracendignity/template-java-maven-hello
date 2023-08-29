@@ -75,9 +75,9 @@ public class MyUserShopping implements MyAction{
             updateStatement.setString(2, productID);
             updateStatement.executeUpdate();
        // 设置要添加的信息
-        statement.setString(1, productID); // 设置ID
-        statement.setInt(2, quantity);
-        statement.setString(2, name);
+       statement.setString(1, name);
+        statement.setString(2, productID); // 设置ID
+        statement.setInt(3, quantity);
       // 执行插入操作
       int rowsAffected = statement.executeUpdate();
       System.out.println("已添加 " + rowsAffected + " 条信息");
