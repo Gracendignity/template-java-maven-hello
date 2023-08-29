@@ -194,7 +194,7 @@ public class MyUserShopping implements MyAction{
         try (Connection connection = DriverManager.getConnection(DB_Shop);
          Connection connection1 = DriverManager.getConnection(DB_Manager);
           Connection connection2 = DriverManager.getConnection(DB_Product);
-           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE name = ?, productID = ? ");
+           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE name = ? AND productID = ? ");
             PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
             PreparedStatement selectStatement2 = connection1.prepareStatement("SELECT totalAmount FROM manager WHERE username = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
@@ -208,6 +208,7 @@ public class MyUserShopping implements MyAction{
         }
         else {
           System.out.println("商品不存在");
+          continue; // 继续下一轮循环
          }
           // 查询当前商品的售价
           double price=0;
@@ -223,7 +224,7 @@ public class MyUserShopping implements MyAction{
        selectStatement2.setString(1, name);
         ResultSet selectResultSet2 = selectStatement2.executeQuery();
          if (selectResultSet2.next()) {
-            totalAmount = selectResultSet.getInt("totalAmount");
+            totalAmount = selectResultSet.getDouble("totalAmount");
         }
         else {
           System.out.println("商品不存在");
