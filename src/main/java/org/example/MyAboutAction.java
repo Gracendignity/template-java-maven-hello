@@ -41,7 +41,7 @@ public class MyAboutAction implements MyAction {
             if (userInput.equals("q")) {
                 break; 
             }
-            else if (userInput.equals("login")) {
+            else if (userInput.equals("login")||userInput.equals("register")) {
             String actionName = null;
             for(MyAction oneAction: list) {
                 actionName = oneAction.getActionName();
