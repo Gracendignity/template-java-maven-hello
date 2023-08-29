@@ -62,7 +62,7 @@ public class MyUserShopping implements MyAction{
             Connection connection1 = DriverManager.getConnection(DB_Product);
             PreparedStatement selectStatement = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (name，productID, quantity) VALUES (?, ?, ?)")) {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (name,productID, quantity) VALUES (?, ?, ?)")) {
             int count=0;
             // 查询当前商品的数量
             selectStatement.setString(1, productID);
@@ -247,8 +247,7 @@ public class MyUserShopping implements MyAction{
      } catch (SQLException e) {
             e.printStackTrace();
             }
-            System.out.println("若购物车中有多种商品。");
-            System.out.print("请输入商品编号（输入q退出）：");
+            System.out.print("若购物车中有多种商品,请再次输入其他商品编号（输入q退出）：");
             productID = this.scanner.nextLine();
 
         }

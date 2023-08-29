@@ -62,7 +62,11 @@ public class MyCustomerManager implements MyAction {
         try (Connection connection = DriverManager.getConnection(DB_Manager);
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM manager")) {
         ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
+        if(!resultSet.next()){
+            System.out.println("无客户信息");
+        }
+        else{
+        do {
         int id = resultSet.getInt("id");
         String username = resultSet.getString("username");
         String userLevel = resultSet.getString("userLevel");
@@ -77,7 +81,8 @@ public class MyCustomerManager implements MyAction {
         System.out.println("phoneNumber: " + phoneNumber);
         System.out.println("User Mail: " + userEMail);
         System.out.println("------------------------");
-        }
+        }while (resultSet.next());
+     }
       } catch (SQLException e) {
     System.out.println("Failed to retrieve data from the table: " + e.getMessage());
      }

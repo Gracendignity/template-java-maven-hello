@@ -37,6 +37,7 @@ public class MyHelpAction implements MyAction {
             if (userInput.equals("q")) {
                 break; 
             }
+            else if (userInput.equals("Login")) {
             String actionName = null;
             for(MyAction oneAction: list) {
                 actionName = oneAction.getActionName();
@@ -45,6 +46,7 @@ public class MyHelpAction implements MyAction {
                     oneAction.run(null);
                 }
            }
+        }
         }
     }
  }

@@ -41,6 +41,7 @@ public class MyAboutAction implements MyAction {
             if (userInput.equals("q")) {
                 break; 
             }
+            else if (userInput.equals("login")) {
             String actionName = null;
             for(MyAction oneAction: list) {
                 actionName = oneAction.getActionName();
@@ -49,6 +50,7 @@ public class MyAboutAction implements MyAction {
                     oneAction.run(null);
                 }
             }
+        }
     }
     System.out.println("你已退出用户界面，回到开始页面!");
     }
