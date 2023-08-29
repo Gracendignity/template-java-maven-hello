@@ -96,6 +96,7 @@ public class MyProductManager implements MyAction{
 
         System.out.print("请输入商品的进货数量：");
         int quantity = this.scanner.nextInt();
+        this.scanner.nextLine();  // 消耗掉换行符
         
         try (Connection connection = DriverManager.getConnection(DB_Product);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
