@@ -94,7 +94,7 @@ public class MyProductManager implements MyAction{
         double retailPrice = this.scanner.nextDouble();
 
         System.out.print("请输入商品的进货数量：");
-        int quantity = this.scanner.nextInt();
+        int quantity = Integer.parseInt(this.scanner.nextLine());
 
         try (Connection connection = DriverManager.getConnection(DB_Product);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
