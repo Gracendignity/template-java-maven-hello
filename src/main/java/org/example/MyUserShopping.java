@@ -202,6 +202,7 @@ public class MyUserShopping implements MyAction{
          int currentQuantity=0;
          // 查询当前商品的数量
         selectStatement.setString(1, name);
+        selectStatement.setString(2, productID);
         ResultSet selectResultSet = selectStatement.executeQuery();
          if (selectResultSet.next()) {
          currentQuantity = selectResultSet.getInt("quantity");
