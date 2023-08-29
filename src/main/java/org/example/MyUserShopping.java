@@ -27,7 +27,7 @@ public class MyUserShopping implements MyAction{
     public void run(String[] args) {
         System.out.println("欢迎进入购物界面!");
 
-        System.out.println("加入购物车：add,移出购物车:delete,修改购物车中的商品:change,付账：pay,查看购物历史:check");
+        System.out.println("加入购物车(若之后还要加入已经加入了购物车的商品，请使用change功能直接更改商品的数量)：add,移出购物车:delete,修改购物车中的商品:change,付账：pay,查看购物历史:check");
         String Input = this.scanner.nextLine();
         switch(Input){
             case "add": 
