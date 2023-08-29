@@ -225,7 +225,7 @@ public class MyUserShopping implements MyAction{
        selectStatement2.setString(1, name);
         ResultSet selectResultSet2 = selectStatement2.executeQuery();
          if (selectResultSet2.next()) {
-            totalAmount = selectResultSet.getDouble("totalAmount");
+            totalAmount = selectResultSet2.getDouble("totalAmount");
         }
         else {
           System.out.println("商品不存在");
