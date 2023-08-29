@@ -165,7 +165,7 @@ public class MyUserShopping implements MyAction{
         count = count-newQuantity;
         updateStatement1.setDouble(1, count);
         updateStatement1.setString(2, productID);
-        updateStatement.executeUpdate();
+        updateStatement1.executeUpdate();
 
     } catch (SQLException e) {
         e.printStackTrace();
