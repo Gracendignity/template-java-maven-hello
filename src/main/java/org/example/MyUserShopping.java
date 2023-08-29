@@ -62,7 +62,7 @@ public class MyUserShopping implements MyAction{
             Connection connection1 = DriverManager.getConnection(DB_Product);
             PreparedStatement selectStatement = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
-            PreparedStatement updateStatement1 = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE name = ?");
+            //PreparedStatement updateStatement1 = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE name = ?");
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (name,productID, quantity) VALUES (?, ?, ?)")) {
             int count=0;
             // 查询当前商品的数量
@@ -81,9 +81,9 @@ public class MyUserShopping implements MyAction{
         statement.setInt(3, quantity);
 
 
-        updateStatement1.setInt(1, quantity);
+        /*updateStatement1.setInt(1, quantity);
         updateStatement1.setString(2, name);
-        updateStatement1.executeUpdate();
+        updateStatement1.executeUpdate();*/
       // 执行插入操作
       int rowsAffected = statement.executeUpdate();
       System.out.println("已添加 " + rowsAffected + " 条信息");
@@ -191,7 +191,7 @@ public class MyUserShopping implements MyAction{
         try (Connection connection = DriverManager.getConnection(DB_Shop);
          Connection connection1 = DriverManager.getConnection(DB_Manager);
           Connection connection2 = DriverManager.getConnection(DB_Product);
-           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE name = ?");
+           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE name = ?, productID = ? ");
             PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
             PreparedStatement selectStatement2 = connection1.prepareStatement("SELECT totalAmount FROM manager WHERE username = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
