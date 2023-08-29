@@ -168,6 +168,7 @@ public class MyUserShopping implements MyAction{
    public void  pay(){
     
     double totalAmount = 0.0;
+    double totalAmount1 = 0.0;
       System.out.print("请输入用户名：");
       String username = this.scanner.nextLine();
 
@@ -203,10 +204,10 @@ public class MyUserShopping implements MyAction{
         System.out.println("商品不存在");
         continue; // 继续下一轮循环
        }
+         totalAmount += currentQuantity * price;
+         totalAmount1 = currentQuantity * price;
 
-         totalAmount = currentQuantity * price;
-
-        System.out.println("购物总金额：" + totalAmount);
+        System.out.println("购物总金额：" + totalAmount1);
 
         // 使用支付宝、微信和银行卡来模拟付账
        System.out.println("请根据购物总金额付账！");
@@ -222,8 +223,6 @@ public class MyUserShopping implements MyAction{
           else if(input.equals("Card")){
                System.out.println("银行卡支付成功！");
              }
-
-             totalAmount += currentQuantity * price;
              // 根据购物总金额区分客户等级并更新到manager数据表
           String userLevel = "";
           if (totalAmount >= 1000) {
@@ -243,6 +242,9 @@ public class MyUserShopping implements MyAction{
             }
             System.out.print("请输入商品编号（输入q退出）：");
             productID = this.scanner.nextLine();
+
+            System.out.print("请输入用户名：");
+            username = this.scanner.nextLine();
         }
  }
   
@@ -251,7 +253,7 @@ public class MyUserShopping implements MyAction{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Shop")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        String productID = resultSet.getNString("productID");
+        String productID = resultSet.getString("productID");
         int quantity = resultSet.getInt("quantity");
         System.out.println("购买清单如下:");
         System.out.println("ID: " + productID);
