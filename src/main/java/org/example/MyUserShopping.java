@@ -183,11 +183,14 @@ public class MyUserShopping implements MyAction{
     
     double totalAmount = 0.0;
     double totalAmount1 = 0.0;
+
       System.out.print("请输入用户名：");
       String name = this.scanner.nextLine();
 
       System.out.print("请输入商品编号：");
       String productID = this.scanner.nextLine();
+
+      while(!productID.equals("q")){
         try (Connection connection = DriverManager.getConnection(DB_Shop);
          Connection connection1 = DriverManager.getConnection(DB_Manager);
           Connection connection2 = DriverManager.getConnection(DB_Product);
@@ -215,6 +218,7 @@ public class MyUserShopping implements MyAction{
         }
        else {
         System.out.println("商品不存在");
+        continue; // 继续下一轮循环
        }
        selectStatement2.setString(1, name);
         ResultSet selectResultSet2 = selectStatement2.executeQuery();
@@ -223,6 +227,7 @@ public class MyUserShopping implements MyAction{
         }
         else {
           System.out.println("商品不存在");
+          continue; // 继续下一轮循环
          }
          totalAmount += currentQuantity * price;
          totalAmount1 = currentQuantity * price;
@@ -257,9 +262,16 @@ public class MyUserShopping implements MyAction{
          updateStatement.setString(2, userLevel);
          updateStatement.setString(3, name);
          updateStatement.executeUpdate();
-     } catch (SQLException e) {
+
+         } catch (SQLException e) {
             e.printStackTrace();
             }
+            System.out.print(("若购物车中有多种商品，输入商品编号继续付款（q退出）"));
+
+            System.out.print("请输入商品编号（输入q退出）：");
+            productID = this.scanner.nextLine();
+
+        }
  }
   
    public void shoppingHistory(){
