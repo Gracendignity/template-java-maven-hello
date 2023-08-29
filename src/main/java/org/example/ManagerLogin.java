@@ -38,7 +38,7 @@ public class ManagerLogin implements MyAction{
         list.add(product);
 
         System.out.println("欢迎进入登录界面!");
-        int count=1;
+        int count=0;
         boolean success=false;
         while(true) {
             System.out.print("请输入用户名:");

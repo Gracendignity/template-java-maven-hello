@@ -43,7 +43,6 @@ public class UserPassword implements MyAction {
         }
     }
     public void Resetpassword(){
-        while(true){
            System.out.println("请输入用户名：");
             String username = this.scanner.nextLine();
             
@@ -63,11 +62,9 @@ public class UserPassword implements MyAction {
                     System.out.println("重置密码邮件已发送，请检查您的邮箱。请返回登录界面重新登录");
                     String Input = this.scanner.nextLine();
                     if (Input.equals("q")) {
-                     break; 
                     }
             }
         }
-    }
 }
     
 
