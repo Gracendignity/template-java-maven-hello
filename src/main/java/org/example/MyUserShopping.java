@@ -132,11 +132,12 @@ public class MyUserShopping implements MyAction{
          PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM Shop WHERE productID = ?")) {
             int newQuantity=0;
             int count=0;
+            int currentQuantity=0;
         // 查询当前商品的数量
         selectStatement.setString(1, name);
         ResultSet selectResultSet = selectStatement.executeQuery();
         if (selectResultSet.next()) {
-            int currentQuantity = selectResultSet.getInt("quantity");
+            currentQuantity = selectResultSet.getInt("quantity");
 
             // 计算变化后的数量
             newQuantity = currentQuantity - quantityChange;
@@ -162,7 +163,7 @@ public class MyUserShopping implements MyAction{
         else {
             System.out.println("商品不存在");
         }
-        count = count-newQuantity;
+        count = count+currentQuantity-newQuantity;
         updateStatement1.setDouble(1, count);
         updateStatement1.setString(2, productID);
         updateStatement1.executeUpdate();
