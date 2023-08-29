@@ -263,9 +263,11 @@ public class MyUserShopping implements MyAction{
            }
            else{
          do {
+        String name = resultSet.getString("name");
          String productID = resultSet.getString("productID");
          int quantity = resultSet.getInt("quantity");
          System.out.println("购买清单如下:");
+         System.out.println("name: " + name);
          System.out.println("ID: " + productID);
          System.out.println("quantity: " + quantity);
          System.out.println("------------------------");
