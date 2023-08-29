@@ -193,7 +193,7 @@ public class MyUserShopping implements MyAction{
           Connection connection2 = DriverManager.getConnection(DB_Product);
            PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE name = ?");
             PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
-            PreparedStatement selectStatement2 = connection1.prepareStatement("SELECT totalAmount FROM Product WHERE username = ?");
+            PreparedStatement selectStatement2 = connection1.prepareStatement("SELECT totalAmount FROM manager WHERE username = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
 
          int currentQuantity=0;
