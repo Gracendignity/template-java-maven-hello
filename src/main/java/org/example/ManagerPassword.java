@@ -42,10 +42,10 @@ public void run(String[] args) {
 }
 public void Resetpassword(){
     while(true){
-       System.out.println("请输入用户名：");
+       System.out.println("请输入需重置密码用户的用户名：");
         String username = this.scanner.nextLine();
         
-        System.out.println("请输入注册时使用的邮箱地址：");
+        System.out.println("请输入该用户注册时使用的邮箱地址：");
         String userMail = this.scanner.nextLine();
         
         if (resetPassword(username, userMail)) {
