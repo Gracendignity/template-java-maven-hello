@@ -63,6 +63,7 @@ public void Resetpassword(){
             if (resetPassword(username, userMail)) {
                 System.out.println("重置密码邮件已发送，请检查您的邮箱。");
         }
+        break;
     }
 }
 }
@@ -147,7 +148,7 @@ public void changePassword(){
                System.out.println("User information updated successfully!");
                
                System.out.println("修改密码成功,请退出重新登录！");
-               
+               break;
                }
                else {
                System.out.println("User not found!");

@@ -43,6 +43,7 @@ public class UserPassword implements MyAction {
         }
     }
     public void Resetpassword(){
+        while(true){
            System.out.println("请输入用户名：");
             String username = this.scanner.nextLine();
             
@@ -51,6 +52,7 @@ public class UserPassword implements MyAction {
             
             if (resetPassword(username, userMail)) {
                 System.out.println("重置密码邮件已发送，请检查您的邮箱。");
+                break;
                 }
             else {
                 System.out.println("用户名或邮箱地址不正确，请重新输入:");
@@ -64,7 +66,9 @@ public class UserPassword implements MyAction {
                     if (Input.equals("q")) {
                     }
             }
+            break;
         }
+    }
 }
     
 
@@ -146,6 +150,7 @@ public class UserPassword implements MyAction {
                    System.out.println("User information updated successfully!");
                    
                    System.out.println("修改密码成功,请退出重新登录");
+                   break;
                 }
                    else {
                    System.out.println("User not found!");

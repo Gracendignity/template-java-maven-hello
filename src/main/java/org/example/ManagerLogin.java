@@ -56,7 +56,7 @@ public class ManagerLogin implements MyAction{
             else{
                 count++;
                 if(count==5){
-                    System.out.println("你的账户已被锁定!使用密码管理功能重置密码：passWord");
+                    System.out.println("你的账户已被锁定!使用密码管理功能重置密码：Password");
                     userInput = this.scanner.nextLine();
 
                     String actionName = null;
