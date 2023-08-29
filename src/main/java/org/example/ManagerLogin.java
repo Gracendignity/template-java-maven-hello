@@ -106,7 +106,7 @@ public class ManagerLogin implements MyAction{
                         }
                    }
                    System.out.println("q退出,继续使用"+userInput+"功能:G");
-                   String input = this.scanner.nextLine();
+                   String input = this.scanner.next();
                    if (input.equals("q")) {
                     break; 
                    }

@@ -43,6 +43,7 @@ public class MyProductManager implements MyAction{
                           break;
             case "check":
                          checkInfo();
+                         break;
         }
     }
 
@@ -94,8 +95,8 @@ public class MyProductManager implements MyAction{
         double retailPrice = this.scanner.nextDouble();
 
         System.out.print("请输入商品的进货数量：");
-        int quantity = Integer.parseInt(this.scanner.nextLine());
-
+        int quantity = this.scanner.nextInt();
+        
         try (Connection connection = DriverManager.getConnection(DB_Product);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (productID, productName, manufacturer, model, purchasePrice, retailPrice, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
        // 设置要添加的信息
