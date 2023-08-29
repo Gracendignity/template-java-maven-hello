@@ -57,9 +57,9 @@ public class MyUserShopping implements MyAction{
 
         try (Connection connection = DriverManager.getConnection(DB_Shop);
             Connection connection1 = DriverManager.getConnection(DB_Product);
-        PreparedStatement selectStatement = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
-         PreparedStatement updateStatement = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (ID, quantity) VALUES (?, ?)")) {
+            PreparedStatement selectStatement = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
+            PreparedStatement updateStatement = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Shop (productID, quantity) VALUES (?, ?)")) {
             int count=0;
             // 查询当前商品的数量
             selectStatement.setString(1, productID);
@@ -85,7 +85,7 @@ public class MyUserShopping implements MyAction{
 
    public void deleteProduct(){
     try (Connection connection = DriverManager.getConnection(DB_Shop);
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Shop WHERE ID = ?")) {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Shop WHERE productID = ?")) {
        // 根据商品名称删除商品信息
        System.out.print("输入要删除的商品编号:");
        String productID = this.scanner.nextLine();
@@ -118,11 +118,11 @@ public class MyUserShopping implements MyAction{
 
     try (Connection connection = DriverManager.getConnection(DB_Shop);
         Connection connection1 = DriverManager.getConnection(DB_Product);
-         PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
+         PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE productID = ?");
          PreparedStatement selectStatement1 = connection1.prepareStatement("SELECT quantity FROM Product WHERE productID = ?");
-         PreparedStatement updateStatement = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE ID = ?");
+         PreparedStatement updateStatement = connection.prepareStatement("UPDATE Shop SET quantity = ? WHERE productID = ?");
          PreparedStatement updateStatement1 = connection1.prepareStatement("UPDATE Product SET quantity = ? WHERE productID = ?");
-         PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM Shop WHERE ID = ?")) {
+         PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM Shop WHERE productID = ?")) {
             int newQuantity=0;
             int count=0;
         // 查询当前商品的数量
@@ -177,7 +177,7 @@ public class MyUserShopping implements MyAction{
         try (Connection connection = DriverManager.getConnection(DB_Shop);
          Connection connection1 = DriverManager.getConnection(DB_Manager);
           Connection connection2 = DriverManager.getConnection(DB_Product);
-           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE ID = ?");
+           PreparedStatement selectStatement = connection.prepareStatement("SELECT quantity FROM Shop WHERE productID = ?");
             PreparedStatement selectStatement1 = connection2.prepareStatement("SELECT retailPrice FROM Product WHERE productID = ?");
             PreparedStatement updateStatement = connection1.prepareStatement("UPDATE manager SET totalAmount = ?, userLevel = ? WHERE username = ?")) {
 
@@ -251,10 +251,10 @@ public class MyUserShopping implements MyAction{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Shop")) {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        String id = resultSet.getNString("ID");
+        String productID = resultSet.getNString("productID");
         int quantity = resultSet.getInt("quantity");
         System.out.println("购买清单如下:");
-        System.out.println("ID: " + id);
+        System.out.println("ID: " + productID);
         System.out.println("quantity: " + quantity);
         System.out.println("------------------------");
        }
