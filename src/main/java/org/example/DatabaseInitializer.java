@@ -70,7 +70,7 @@ public class DatabaseInitializer {
         }
         try (Connection connection = DriverManager.getConnection(DB_Shop);
         Statement statement = connection.createStatement()) {
-       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id INTEGER PRIMARY KEY AUTOINCREMENT,productID TEXT, quantity INTEGER)";
+       String createTableQuery = "CREATE TABLE IF NOT EXISTS Shop (id INTEGER PRIMARY KEY AUTOINCREMENT,name text,productID TEXT, quantity INTEGER)";
        statement.executeUpdate(createTableQuery);
        System.out.println("Database initialized successfully!");
    } catch (SQLException e) {
